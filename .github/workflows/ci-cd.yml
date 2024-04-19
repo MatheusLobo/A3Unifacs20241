@@ -1,0 +1,44 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Environment
+        uses: ./.github/workflows/setup-env.yml
+
+      - name: Setup Java Environment
+        uses: ./.github/workflows/setup-java.yml
+
+      - name: Setup Node.js Environment
+        uses: ./.github/workflows/setup-node.yml
+
+      - name: Build with Maven
+        uses: ./.github/workflows/maven-build.yml
+
+      - name: Install and Run Commitlint
+        uses: ./.github/workflows/commitlint.yml
+
+      - name: Set GitHub Repository URL
+        uses: ./.github/workflows/set-repository-url.yml
+      
+      - name: Set NPM Token
+        uses: ./.github/workflows/set-npm-token.yml
+
+      - name: Install Dependencies
+        uses: ./.github/workflows/install-dependencies.yml
+
+      - name: Run Semantic Release
+        uses: ./.github/workflows/semantic-release.yml
+
+      - name: Upload JAR Artifact
+        uses: ./.github/workflows/upload-artifact.yml

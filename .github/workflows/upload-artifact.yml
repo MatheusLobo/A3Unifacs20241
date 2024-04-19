@@ -1,0 +1,12 @@
+name: Upload JAR Artifact
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gqs
+          path: gqs/target/gqs-1.0-SNAPSHOT.jar

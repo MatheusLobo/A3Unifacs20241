@@ -1,0 +1,9 @@
+name: Set GitHub Repository URL
+
+jobs:
+  set-repository-url:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set GitHub repository URL
+        run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/A3Unifacs20241" >> $GITHUB_ENV

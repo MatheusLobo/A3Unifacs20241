@@ -1,0 +1,17 @@
+name: Install and Run Commitlint
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install commitlint
+        run: npm install -g @commitlint/cli
+
+      - name: Get main branch commit hash
+        id: commit_hash
+        run: |
+          echo "MAIN_COMMIT_HASH=$(git rev-parse main)" >> $GITHUB_ENV
+
+      - name: Run Commitlint
+        run: npx commitlint --from=$MAIN_COMMIT_HASH
