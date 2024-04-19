@@ -1,9 +1,0 @@
-name: Install Dependencies
-
-jobs:
-  install-dependencies:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install dependencies
-        run: npm ci
