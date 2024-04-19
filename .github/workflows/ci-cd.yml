@@ -29,8 +29,9 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -B package -f gqs/pom.xml
-          mvn -B test -f gqs/pom.xml
+          mvn -B package -f Armazem/LojaA3/pom.xml
+          mvn -B test -f Armazem/LojaA3/pom.xml
+
 
       - name: Install commitlint
         run: npm install -g @commitlint/cli
@@ -44,7 +45,7 @@ jobs:
         run: npx commitlint --from=$MAIN_COMMIT_HASH
 
       - name: Set GitHub repository URL
-        run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/GQS" >> $GITHUB_ENV
+        run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/A3Unifacs20241" >> $GITHUB_ENV
       
       - name: Set NPM token
         run: echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}" >> $GITHUB_ENV
