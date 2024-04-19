@@ -27,10 +27,10 @@ jobs:
         with:
           node-version: '20'
 
-- name: Build with Maven
-  run: |
-    mvn -B package -f /home/runner/work/A3Unifacs20241/A3Unifacs20241/Armazem/LojaA3/pom.xml
-    mvn -B test -f /home/runner/work/A3Unifacs20241/A3Unifacs20241/Armazem/LojaA3/pom.xml
+      - name: Build with Maven
+        run: |
+          mvn -B package -f /home/runner/work/A3Unifacs20241/A3Unifacs20241/Armazem/LojaA3/pom.xml
+          mvn -B test -f /home/runner/work/A3Unifacs20241/A3Unifacs20241/Armazem/LojaA3/pom.xml
 
 
 
