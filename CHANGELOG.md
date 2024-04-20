@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/MatheusLobo/A3Unifacs20241/compare/v1.2.0...v1.3.0) (2024-04-20)
+
+
+### Features
+
+* att cicd ([ebe5b63](https://github.com/MatheusLobo/A3Unifacs20241/commit/ebe5b6368767dfb15bb0a2941601dc733cd2fa93))
+
 # [1.2.0](https://github.com/MatheusLobo/A3Unifacs20241/compare/v1.1.0...v1.2.0) (2024-04-20)
 
 
