@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/MatheusLobo/A3Unifacs20241/compare/v1.0.0...v1.1.0) (2024-04-20)
+
+
+### Features
+
+* atualizacao ([2bbebc0](https://github.com/MatheusLobo/A3Unifacs20241/commit/2bbebc047e7422bd6edc668f71387a91dc08b130))
+
 # 1.0.0 (2024-04-20)
 
 
