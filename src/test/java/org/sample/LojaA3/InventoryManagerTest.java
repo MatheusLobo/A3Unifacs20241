@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.sample.InventoryManager;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class InventoryManagerTest {
