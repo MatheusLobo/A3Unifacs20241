@@ -3,6 +3,23 @@
 
 ### Features
 
+* att ci cd ([8eee29c](https://github.com/MatheusLobo/A3Unifacs20241/commit/8eee29c52a7c626420bf8af044b2fff4c3077e45))
+* att ci cd ([4156971](https://github.com/MatheusLobo/A3Unifacs20241/commit/4156971d3806680700a1ed375f58c0a1f9fec7c3))
+* att ci cd ([a50012f](https://github.com/MatheusLobo/A3Unifacs20241/commit/a50012f4ee92e19e45e2438a374f306e54f99831))
+* att cicd ([2c44317](https://github.com/MatheusLobo/A3Unifacs20241/commit/2c44317dd68b3e81a8a96f40c9d857518dc858e2))
+* att cicd ([5ffea66](https://github.com/MatheusLobo/A3Unifacs20241/commit/5ffea66eb91bd178215c3359100962956bf8e101))
+* att de ci ([fdd2b65](https://github.com/MatheusLobo/A3Unifacs20241/commit/fdd2b65fd6c3a7986765bb6be89f8f1d34cb9f3c))
+* att de json ([e369dd6](https://github.com/MatheusLobo/A3Unifacs20241/commit/e369dd6389f4de22ca14b6d1d67ed09a7271fbf3))
+* att de json ([a7915c0](https://github.com/MatheusLobo/A3Unifacs20241/commit/a7915c033b38c3479bbfb2c58bd0e7cb4b9ce746))
+* att de json ([d2d3b3b](https://github.com/MatheusLobo/A3Unifacs20241/commit/d2d3b3b96b021f0609a8880d79b8e4256fcff82a))
+* att package ([4f16a9f](https://github.com/MatheusLobo/A3Unifacs20241/commit/4f16a9f18baa0804856613d3ed8788b5090814b5))
+* atualizacao ([78a85bc](https://github.com/MatheusLobo/A3Unifacs20241/commit/78a85bc5b50347a7dab8b42b142dc956f12827bd))
+
+# [1.2.0](https://github.com/MatheusLobo/A3Unifacs20241/compare/v1.1.0...v1.2.0) (2024-04-20)
+
+
+### Features
+
 * att ci cd ([4156971](https://github.com/MatheusLobo/A3Unifacs20241/commit/4156971d3806680700a1ed375f58c0a1f9fec7c3))
 * att ci cd ([a50012f](https://github.com/MatheusLobo/A3Unifacs20241/commit/a50012f4ee92e19e45e2438a374f306e54f99831))
 * att de json ([e369dd6](https://github.com/MatheusLobo/A3Unifacs20241/commit/e369dd6389f4de22ca14b6d1d67ed09a7271fbf3))
