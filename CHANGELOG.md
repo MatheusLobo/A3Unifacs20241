@@ -1,3 +1,12 @@
+# 1.0.0 (2024-04-20)
+
+
+### Features
+
+* atualizacao ([2d1332f](https://github.com/MatheusLobo/A3Unifacs20241/commit/2d1332f7be6a61831fa52c1a95ef2b3b732dd81c))
+* correcao dependencias ([d0877a3](https://github.com/MatheusLobo/A3Unifacs20241/commit/d0877a3e57f313918fa073ee214c0fab1e4db416))
+* correcao dependencias ([f262c63](https://github.com/MatheusLobo/A3Unifacs20241/commit/f262c63466b0b1f143804bca2bd1c43bc3cde479))
+
 # [1.2.0](https://github.com/MatheusLobo/GQS/compare/v1.1.0...v1.2.0) (2024-03-28)
 
 
