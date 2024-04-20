@@ -3,6 +3,18 @@
 
 ### Features
 
+* atualizacao ([3afc7b6](https://github.com/MatheusLobo/A3Unifacs20241/commit/3afc7b653778a26098c1d78bbcdae971c290c7ed))
+* atualizacao ([1c6dff7](https://github.com/MatheusLobo/A3Unifacs20241/commit/1c6dff783126444b64edd345d580942cc07c3abf))
+* atualizacao ([2d1332f](https://github.com/MatheusLobo/A3Unifacs20241/commit/2d1332f7be6a61831fa52c1a95ef2b3b732dd81c))
+* correcao dependencias ([82005ec](https://github.com/MatheusLobo/A3Unifacs20241/commit/82005ec5e3a11805e244671279f6f829bfd9cd25))
+* correcao dependencias ([d0877a3](https://github.com/MatheusLobo/A3Unifacs20241/commit/d0877a3e57f313918fa073ee214c0fab1e4db416))
+* correcao dependencias ([f262c63](https://github.com/MatheusLobo/A3Unifacs20241/commit/f262c63466b0b1f143804bca2bd1c43bc3cde479))
+
+# 1.0.0 (2024-04-20)
+
+
+### Features
+
 * atualizacao ([2d1332f](https://github.com/MatheusLobo/A3Unifacs20241/commit/2d1332f7be6a61831fa52c1a95ef2b3b732dd81c))
 * correcao dependencias ([d0877a3](https://github.com/MatheusLobo/A3Unifacs20241/commit/d0877a3e57f313918fa073ee214c0fab1e4db416))
 * correcao dependencias ([f262c63](https://github.com/MatheusLobo/A3Unifacs20241/commit/f262c63466b0b1f143804bca2bd1c43bc3cde479))
