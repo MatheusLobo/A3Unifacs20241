@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/MatheusLobo/A3Unifacs20241/compare/v1.5.0...v1.6.0) (2024-04-20)
+
+
+### Features
+
+* att json ([a5ec614](https://github.com/MatheusLobo/A3Unifacs20241/commit/a5ec614bf2c310db01bc2f464aa66633474e7285))
+* att jsons ([269b18e](https://github.com/MatheusLobo/A3Unifacs20241/commit/269b18e33398d05b55a417d2fe03ceeccc8670cb))
+
 # [1.5.0](https://github.com/MatheusLobo/A3Unifacs20241/compare/v1.4.0...v1.5.0) (2024-04-20)
 
 
