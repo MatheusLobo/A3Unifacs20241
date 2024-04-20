@@ -32,8 +32,6 @@ jobs:
           mvn -B package -f pom.xml
           mvn -B test -f pom.xml
 
-
-
       - name: Install commitlint
         run: npm install -g @commitlint/cli
 
@@ -53,6 +51,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Disable Git tag version
+        run: npm config -g set git-tag-version false
 
       - name: Run Semantic Release
         env:
