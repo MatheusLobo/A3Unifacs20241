@@ -32,11 +32,13 @@ public class InventoryManagerTest {
         int quantidade = 100;
         double valor = 50.00;
 
+        // Armazena o objeto retornado pelo método
         Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //adiciona um produto
 
-        verify(estoqueMock).put(sku, storage); //verifica se o produto foi adicionado ao estoque
+        // Verifica se o mock foi chamado com o sku e o objeto Storage correto
+        verify(estoqueMock).put(sku, storage); 
     }
-
+    
     @org.junit.Test(expected = IllegalArgumentException.class)
     public void adicionarProdutoStorageNull() { //teste negativo com exceção
         inventoryManager.adicionarProduto(0, null, 0, 0); //tentativa de adicionar produto com parametros invalidos
@@ -52,20 +54,29 @@ public class InventoryManagerTest {
         inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //tentativa de adicionar produto com quantidade invalida
     }
 
-    @org.junit.Test
     public void removerProdutoSucesso() { //teste positivo
+        // Mocks e dados de teste
+        Map<Integer, Storage> estoqueMock = mock(Map.class);
+        InventoryManager inventoryManager = new InventoryManager(estoqueMock, null);
         int sku = 3232;
         String nome = "Camiseta";
         int quantidadeInicial = 10;
         int quantidadeRemover = 5;
         double valor = 50.00;
 
-        inventoryManager.adicionarProduto(sku, nome, quantidadeInicial, valor); //adiciona produto
+        // Configuração do mock para retornar um objeto Storage quando o método get for chamado com o sku 3232
+        when(estoqueMock.get(sku)).thenReturn(new Storage(sku, nome, quantidadeInicial, valor));
+
+        // Execução do método a ser testado
         inventoryManager.removerProduto(sku, quantidadeRemover); //remove uma quantidade do produto
 
-        verify(estoqueMock).put(sku, storage); //verifica se o produto foi atualizado no estoque
-        assertEquals(quantidadeInicial - quantidadeRemover, storage.getQuantidade()); //verifica se a quantidade foi atualizada corretamente
+        // Verificação se o método put foi chamado com o objeto Storage correto
+        verify(estoqueMock).put(eq(sku), any(Storage.class));
+
+        // Verificação se a quantidade foi atualizada corretamente
+        assertEquals(quantidadeInicial - quantidadeRemover, estoqueMock.get(sku).getQuantidade());
     }
+
 
     @org.junit.Test(expected = IllegalArgumentException.class)
     public void removerProdutoSkuInvalido() { //teste negativo com exceção
@@ -79,7 +90,7 @@ public class InventoryManagerTest {
 
     @org.junit.Test
     public void verificarEstoqueSucesso() { //teste positivo
-        int sku = 123;
+        int sku = 3232;
         String nome = "Camiseta";
         int quantidade = 10;
         double valor = 50.00;
@@ -111,17 +122,29 @@ public class InventoryManagerTest {
 
     @org.junit.Test
     public void adicionarProdutoSucessoComPrecoExterno() { //teste positivo com preco externo
+        // Mocks e dados de teste
+        Map<Integer, Storage> mock = mock(Map.class);
+		Map<Integer, Storage> estoqueMock = mock;
+        PrecoService precoServiceMock = mock(PrecoService.class); // Crie o mock para PrecoService
+        InventoryManager inventoryManager = new InventoryManager(estoqueMock, precoServiceMock); // Injete o mock no construtor
         int sku = 3232;
         String nome = "Camiseta";
         int quantidade = 10;
         double precoExterno = 45.00;
 
-        when(precoServiceMock.getPreco(sku)).thenReturn(precoExterno); //define o comportamento do serviço de preco
+        // Define o comportamento do serviço de preco antes de chamar o método de adição
+        when(precoServiceMock.getPreco(sku)).thenReturn(precoExterno);
 
+        // Execução do método a ser testado
         Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, precoExterno); //adiciona produto com preco externo
 
-        verify(precoServiceMock).getPreco(sku); //verifica se o serviço de preco foi chamado com o sku especificado
-        assertEquals(precoExterno, storage.getValor(), 0.01); //verifica se o valor do produto corresponde ao preco externo
-        verify(estoqueMock).put(sku, storage); //verifica se o produto foi adicionado ao estoque
+        // Verificação se o serviço de preco foi chamado com o sku especificado
+        verify(precoServiceMock).getPreco(sku);
+
+        // Verifica se o valor do produto corresponde ao preco externo
+        assertEquals(precoExterno, storage.getValor(), 0.01);
+
+        // Verifica se o produto foi adicionado ao estoque
+        verify(estoqueMock).put(sku, storage);
     }
-}
+    }

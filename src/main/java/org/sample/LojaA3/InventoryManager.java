@@ -20,14 +20,37 @@ public class InventoryManager {
     //adiciona um novo produto ao estoque.
 
     public Storage adicionarProduto(int sku, String nome, int quantidade, double valor) {
-        if (sku <= 0 || nome == null || nome.isEmpty() || quantidade <= 0) {
-            throw new IllegalArgumentException("Parâmetros inválidos");
+        // Validação dos parâmetros de entrada (sku, nome, quantidade)
+        if (sku <= 0) {
+            throw new IllegalArgumentException("SKU inválido: " + sku);
         }
 
-        Storage storage = new Storage(sku, nome, quantidade, valor); //cria um novo objeto Storage.
-        return estoque.put(storage.getSku(), storage); //adiciona o Storage no mapa do estoque
-    }
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome inválido: " + nome);
+        }
 
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("Quantidade inválida: " + quantidade);
+        }
+
+        // Busca o preço do produto no serviço externo se nenhum valor for fornecido
+        if (valor <= 0) {
+            if (precoService == null) {
+                throw new IllegalStateException("Serviço de preço não configurado");
+            }
+
+            valor = precoService.getPreco(sku);
+        }
+
+        // Cria um novo objeto Storage com os valores informados
+        Storage storage = new Storage(sku, nome, quantidade, valor);
+
+        // Adiciona o Storage no mapa do estoque
+        estoque.put(storage.getSku(), storage);
+
+        // Retorna o Storage criado
+        return storage;
+    }
     //metodo removerProduto:
     //remove uma certa quantidade de um produto do estoque.
 
@@ -53,7 +76,7 @@ public class InventoryManager {
     }
 
     
-    // recupera o objeto Storage associado a um determinado SKU (se existir).
+    // verifica o estoque usando o sku
 
     public Storage verificarEstoque(int sku) {
         if (sku <= 0) {
@@ -63,7 +86,7 @@ public class InventoryManager {
         return estoque.get(sku); // retorna o objeto Storage associado ao SKU, ou null se não existir.
     }
 
-    // interface PrecoService:
+    // interface PrecoService;
     // define uma interface para serviços de consulta de preços (não implementada aqui).
 
     interface PrecoService {
