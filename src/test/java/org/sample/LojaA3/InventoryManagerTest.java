@@ -59,7 +59,7 @@ public class InventoryManagerTest {
         Map<Integer, Storage> estoqueMock = mock(Map.class);
         InventoryManager inventoryManager = new InventoryManager(estoqueMock, null);
         int sku = 3232;
-        String nome = "Camiseta";
+        String nome = "Camisa";
         int quantidadeInicial = 10;
         int quantidadeRemover = 5;
         double valor = 50.00;
@@ -91,10 +91,11 @@ public class InventoryManagerTest {
     @org.junit.Test
     public void verificarEstoqueSucesso() { //teste positivo
         int sku = 3232;
-        String nome = "Camiseta";
+        String nome = "Camisa";
         int quantidade = 10;
         double valor = 50.00;
-
+        storage = new Storage(sku, nome, quantidade, valor);
+        when(estoqueMock.get(sku)).thenReturn(storage);
         inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //adiciona produto ao estoque
 
         Storage storageEstoque = inventoryManager.verificarEstoque(sku); //verifica o estoque para um sku existente
@@ -123,12 +124,11 @@ public class InventoryManagerTest {
     @org.junit.Test
     public void adicionarProdutoSucessoComPrecoExterno() { //teste positivo com preco externo
         // Mocks e dados de teste
-        Map<Integer, Storage> mock = mock(Map.class);
-		Map<Integer, Storage> estoqueMock = mock;
+        Map<Integer, Storage> estoqueMock = mock(Map.class);
         PrecoService precoServiceMock = mock(PrecoService.class); // Crie o mock para PrecoService
         InventoryManager inventoryManager = new InventoryManager(estoqueMock, precoServiceMock); // Injete o mock no construtor
         int sku = 3232;
-        String nome = "Camiseta";
+        String nome = "Camisa";
         int quantidade = 10;
         double precoExterno = 45.00;
 
