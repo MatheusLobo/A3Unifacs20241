@@ -19,10 +19,10 @@ public class InventoryManagerTest {
     @Mock
     private Map<Integer, Storage> estoqueMock; //mock para o mapa de estoque
     @Mock
-    private PrecoService precoServiceMock; //mock para o serviço de preço
+    private PrecoService precoServiceMock; //mock para o servico de preco
 
     @InjectMocks
-    private InventoryManager inventoryManager; //instância do gerenciador de estoque
+    private InventoryManager inventoryManager; //instancia do gerenciador de estoque
     private Storage storage; //objeto de armazenamento simulado
 
     @org.junit.Test 
@@ -32,15 +32,15 @@ public class InventoryManagerTest {
         int quantidade = 100;
         double valor = 50.00;
 
-        // Armazena o objeto retornado pelo método
+        // Armazena o objeto retornado pelo metodo
         Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //adiciona um produto
 
-        // Verifica se o mock foi chamado com o sku e o objeto Storage correto
+        // Verifica se o mock foi chamado com o sku e o Storage correto
         verify(estoqueMock).put(sku, storage); 
     }
     
     @org.junit.Test(expected = IllegalArgumentException.class)
-    public void adicionarProdutoStorageNull() { //teste negativo com exceção
+    public void adicionarProdutoStorageNull() { //teste negativo com excecao
         inventoryManager.adicionarProduto(0, null, 0, 0); //tentativa de adicionar produto com parametros invalidos
     }
 
@@ -64,34 +64,34 @@ public class InventoryManagerTest {
         int quantidadeRemover = 5;
         double valor = 50.00;
 
-        // Configuração do mock para retornar um objeto Storage quando o método get for chamado com o sku 3232
+        // Configuracao do mock para retornar um obj Storage quando o metodo get for chamado com o sku 3232
         when(estoqueMock.get(sku)).thenReturn(new Storage(sku, nome, quantidadeInicial, valor));
 
-        // Execução do método a ser testado
+        // Execução do metodo a ser testado
         inventoryManager.removerProduto(sku, quantidadeRemover); //remove uma quantidade do produto
 
-        // Verificação se o método put foi chamado com o objeto Storage correto
+        // Verificação se o metodo put foi chamado com o obj Storage correto
         verify(estoqueMock).put(eq(sku), any(Storage.class));
 
-        // Verificação se a quantidade foi atualizada corretamente
+        // Verificacao se a quantidade foi atualizada corretamente
         assertEquals(quantidadeInicial - quantidadeRemover, estoqueMock.get(sku).getQuantidade());
     }
 
 
     @org.junit.Test(expected = IllegalArgumentException.class)
-    public void removerProdutoSkuInvalido() { //teste negativo com exceção
-        inventoryManager.removerProduto(0, 5); //tentativa de remover produto com SKU inválido
+    public void removerProdutoSkuInvalido() { //teste negativo com excecao
+        inventoryManager.removerProduto(0, 5); //tentativa de remover produto com SKU invalido
         
     }
 
     @org.junit.Test(expected = IllegalArgumentException.class)
-    public void removerProdutoQuantidadeInvalida() { //teste negativo com exceção
-        inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade inválida
+    public void removerProdutoQuantidadeInvalida() { //teste negativo com excecao
+        inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade invalida
     }
     
     @org.junit.Test(expected = IllegalArgumentException.class)
-    public void removerProdutoComValorInvalido() { //teste negativo com exceção
-        inventoryManager.removerProduto(50, -5); //tentativa de remover produto com valor inválida
+    public void removerProdutoComValorInvalido() { //teste negativo com exceçao
+        inventoryManager.removerProduto(50, -5); //tentativa de remover produto com valor invalida
     }
 
     @org.junit.Test
@@ -115,9 +115,9 @@ public class InventoryManagerTest {
 
     @org.junit.Test(expected = IllegalArgumentException.class)
     public void verificarEstoqueSkuInvalido() { //teste negativo
-        inventoryManager.verificarEstoque(0); //verifica o estoque para um sku inválido
+        inventoryManager.verificarEstoque(0); //verifica o estoque para um sku invalido
 
-        verify(estoqueMock, never()).get(anyInt()); //verifica se a operação get nunca foi chamada no mock
+        verify(estoqueMock, never()).get(anyInt()); //verifica se a operacao get nunca foi chamada no mock
                   
     }
     
@@ -135,20 +135,20 @@ public class InventoryManagerTest {
         Map<Integer, Storage> estoqueMock = mock(Map.class);
         PrecoService precoServiceMock = mock(PrecoService.class); // Crie o mock para PrecoService
         Storage storageMock = mock(Storage.class);
-        InventoryManager inventoryManager = new InventoryManager(estoqueMock, precoServiceMock); // Injeta o mock no construtor
+        InventoryManager inventoryManager = new InventoryManager(estoqueMock, precoServiceMock); // Injeta o mock
         int produtoSku = 3232; 
         String nomeProduto = "Camisa";
         int quantidadeEstoque = 10;
         double precoProdutoExterno = 55.00;
 
         when(storageMock.getValor()).thenReturn(precoProdutoExterno);
-        // Define o comportamento do serviço de preco antes de chamar o método de adição
+        // Define o comportamento do servico de preco antes de chamar o método de adicao
         when(precoServiceMock.getPreco(produtoSku)).thenReturn(precoProdutoExterno);
 
-        // Execução do método a ser testado
+        // Execuçao do metodo a ser testado
         Storage storage = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); //adiciona produto com preco externo
 
-        // Verificação se o serviço de preco foi chamado com o sku especificado
+        // Verificacao se o serviço de preco foi chamado com o sku especificado
         verify(precoServiceMock).getPreco(produtoSku);
 
         // Verifica se o valor do produto corresponde ao preco externo
