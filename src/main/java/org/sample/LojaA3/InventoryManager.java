@@ -21,7 +21,7 @@ public class InventoryManager {
 
     public Storage adicionarProduto(int sku, String nome, int quantidade, double valor) {
         // Validação dos parâmetros de entrada (sku, nome, quantidade)
-        if (sku <= 0) {
+        if (sku < 0) {
             throw new IllegalArgumentException("SKU inválido: " + sku);
         }
 
