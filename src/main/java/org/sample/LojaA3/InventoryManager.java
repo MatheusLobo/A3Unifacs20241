@@ -36,7 +36,7 @@ public class InventoryManager {
             throw new IllegalArgumentException("SKU ou quantidade inválida");
         }
 
-        if (estoque.containsKey(sku)) { //verifica se o SKU existe no estoque.
+        if (estoque.containsKey(sku)) { //verifica se o sku existe no estoque.
             Storage storage = estoque.get(sku); //recupera o objeto Storage associado ao SKU.
             int quantidadeAtual = storage.getQuantidade(); //obtem a quantidade atual do produto no estoque.
 
