@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.sample.LojaA3.InventoryManagerTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.484 s <<< FAILURE! - in org.sample.LojaA3.InventoryManagerTest
-org.sample.LojaA3.InventoryManagerTest.verificarEstoqueSkuInvalido  Time elapsed: 0.002 s  <<< ERROR!
-java.lang.IllegalArgumentException: SKU inválido
-	at org.sample.LojaA3.InventoryManagerTest.verificarEstoqueSkuInvalido(InventoryManagerTest.java:113)
-
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.437 s - in org.sample.LojaA3.InventoryManagerTest
