@@ -80,7 +80,7 @@ public class InventoryManager {
 
     public Storage verificarEstoque(int sku) {
         if (sku <= 0) {
-            throw new IllegalArgumentException("SKU inválido");
+            throw new IllegalArgumentException("SKU invalido");
         }
 
         return estoque.get(sku); // retorna o objeto Storage associado ao SKU, ou null se não existir.
