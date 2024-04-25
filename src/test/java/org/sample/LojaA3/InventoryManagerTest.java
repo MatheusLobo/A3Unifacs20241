@@ -96,6 +96,7 @@ public class InventoryManagerTest {
         double valor = 50.00;
         storage = new Storage(sku, nome, quantidade, valor);
         when(estoqueMock.get(sku)).thenReturn(storage);
+        
         inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //adiciona produto ao estoque
 
         Storage storageEstoque = inventoryManager.verificarEstoque(sku); //verifica o estoque para um sku existente
@@ -115,10 +116,10 @@ public class InventoryManagerTest {
 
     @org.junit.Test
     public void verificarEstoqueSkuNaoExiste() { //teste negativo
-        inventoryManager.verificarEstoque(123); //verifica o estoque para um sku que nao existe
+        inventoryManager.verificarEstoque(3232); //verifica o estoque para um sku que nao existe
 
-        verify(estoqueMock).get(123); //verifica se a operação get foi chamada com o slu especificado
-        assertNull(inventoryManager.verificarEstoque(123)); //verifica se o resultado é nulo
+        verify(estoqueMock).get(3232); //verifica se a operação get foi chamada com o slu especificado
+        assertNull(inventoryManager.verificarEstoque(3232)); //verifica se o resultado é nulo
     }
 
     @org.junit.Test
@@ -126,18 +127,20 @@ public class InventoryManagerTest {
         // Mocks e dados de teste
         Map<Integer, Storage> estoqueMock = mock(Map.class);
         PrecoService precoServiceMock = mock(PrecoService.class); // Crie o mock para PrecoService
+        Storage storageMock = mock(Storage.class);
         InventoryManager inventoryManager = new InventoryManager(estoqueMock, precoServiceMock); // Injete o mock no construtor
         int sku = 3232;
         String nome = "Camisa";
         int quantidade = 10;
-        double precoExterno = 45.00;
-
+        double precoExterno = 55.00;
+        
+        when(storageMock.getValor()).thenReturn(precoExterno);
         // Define o comportamento do serviço de preco antes de chamar o método de adição
         when(precoServiceMock.getPreco(sku)).thenReturn(precoExterno);
 
         // Execução do método a ser testado
-        Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, precoExterno); //adiciona produto com preco externo
-
+        Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, 0.0); //adiciona produto com preco externo
+        
         // Verificação se o serviço de preco foi chamado com o sku especificado
         verify(precoServiceMock).getPreco(sku);
 
