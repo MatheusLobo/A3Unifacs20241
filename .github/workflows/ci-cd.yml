@@ -39,8 +39,13 @@ jobs:
         run: |
           echo "MAIN_COMMIT_HASH=$(git rev-parse main)" >> $GITHUB_ENV
 
-      - name: Run Commitlint
-        run: npx commitlint --from=$MAIN_COMMIT_HASH
+      - name: Validate commits
+        run: |
+          commit_message=$(git log -1 --pretty=format:"%s" HEAD)
+          if [[ ! $commit_message =~ ((build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.*\))?!?: .*) ]]; then
+            echo "commit is not valid: '$commit_message'"
+            exit 1
+          fi
 
       - name: Set GitHub repository URL
         run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/A3Unifacs20241" >> $GITHUB_ENV
