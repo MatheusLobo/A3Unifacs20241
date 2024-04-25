@@ -88,6 +88,11 @@ public class InventoryManagerTest {
     public void removerProdutoQuantidadeInvalida() { //teste negativo com exceção
         inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade inválida
     }
+    
+    @org.junit.Test(expected = IllegalArgumentException.class)
+    public void removerProdutoComValorInvalido() { //teste negativo com exceção
+        inventoryManager.removerProduto(50, -5); //tentativa de remover produto com valor inválida
+    }
 
     @org.junit.Test
     public void verificarEstoqueSucesso() { //teste positivo
@@ -113,17 +118,13 @@ public class InventoryManagerTest {
         inventoryManager.verificarEstoque(0); //verifica o estoque para um sku inválido
 
         verify(estoqueMock, never()).get(anyInt()); //verifica se a operação get nunca foi chamada no mock
-        
-        
-        
-        
-        
+                  
     }
 
     @org.junit.Test
     public void verificarEstoqueSkuNaoExiste() { //teste negativo
         inventoryManager.verificarEstoque(3232); //verifica o estoque para um sku que nao existe
-  
+
         verify(estoqueMock).get(3232); //verifica se a operação get foi chamada com o slu especificado
         assertNull(inventoryManager.verificarEstoque(3232)); //verifica se o resultado é nulo
     }
