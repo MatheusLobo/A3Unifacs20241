@@ -1,86 +1,90 @@
 package org.sample.LojaA3;
 
+import org.sample.LojaA3.EstoqueException;
+import java.util.Map;
 
-
-import java.util.Map; 
 public class InventoryManager {
 
-    private final Map<Integer, Storage> estoque; //Mapa representando o estoque ChaveSKU do produto, Valor objeto Storage.
+    private final Map<Integer, Storage> estoque;
     private final PrecoService precoService;
 
-  
-    //criação de um objeto InventoryManager.
-
     public InventoryManager(Map<Integer, Storage> estoque, PrecoService precoService) {
-        this.estoque = estoque; // Armazena a referencia para o mapa do estoque.
-        this.precoService = precoService; // Armazena a referencia para o serviço de preços (opcional).
+        this.estoque = estoque;
+        this.precoService = precoService;
     }
-
-    //metodo adicionarProduto
-    //adiciona um novo produto ao estoque
 
     public Storage adicionarProduto(int sku, String nome, int quantidade, double valor) {
-        // Validacao dos parametros de entrada (sku, nome, quantidade)
-        if (sku < 0) {
-            throw new IllegalArgumentException("SKU inválido: " + sku);}
-        if (nome == null || nome.isEmpty()) {
-            throw new IllegalArgumentException("Nome inválido: " + nome);}
-        if (quantidade <= 0) {
-            throw new IllegalArgumentException("Quantidade inválida: " + quantidade);}
-
-        // Busca o preco do produto no serviço externo se nenhum valor for fornecido
-        if (valor <= 0) {
-            if (precoService == null) {
-                throw new IllegalStateException("Serviço de preço não configurado");
+        try {
+            if (sku < 0) {
+                throw new EstoqueException("SKU inválido: " + sku);
+            }
+            if (nome == null || nome.isEmpty()) {
+                throw new EstoqueException("Nome inválido: " + nome);
+            }
+            if (quantidade <= 0) {
+                throw new QuantidadeInvalidaException("Quantidade inválida: " + quantidade);
             }
 
-            valor = precoService.getPreco(sku);
-        }
+            if (valor <= 0) {
+                if (precoService == null) {
+                    throw new EstoqueException("Serviço de preço não configurado");
+                }
+                valor = precoService.getPreco(sku);
+            }
 
-        // Cria um novo objeto Storage com os valores informados
-        Storage storage = new Storage(sku, nome, quantidade, valor);
-
-        // Adiciona o Storage no mapa do estoque
-        estoque.put(storage.getSku(), storage);
-
-        // Retorna o Storage criado
-        return storage;
-    }
-    //metodo removerProduto
-    //remove uma certa quantidade de um produto do estoque.
-
-    public void removerProduto(int sku, int quantidade) {
-        if (sku <= 0 || quantidade <= 0) {
-            throw new IllegalArgumentException("SKU ou quantidade inválida");}
-
-        if (estoque.containsKey(sku)) { //verifica se o sku existe no estoque.
-            Storage storage = estoque.get(sku); //recupera o objeto Storage associado ao SKU.
-            int quantidadeAtual = storage.getQuantidade(); //obtem a quantidade atual do produto no estoque.
-
-            if (quantidadeAtual < quantidade) {
-                throw new IllegalArgumentException("Quantidade excede o estoque disponível");}
-
-            storage.setQuantidade(quantidadeAtual - quantidade); // atualiza a quantidade produto no estoque.
-
-            if (storage.getQuantidade() == 0) { //se zerar, remove o produto do estoque.
-                estoque.remove(sku);}
+            Storage storage = new Storage(sku, nome, quantidade, valor);
+            estoque.put(storage.getSku(), storage);
+            return storage;
+        } catch (EstoqueException | QuantidadeInvalidaException e) {
+            System.err.println(e.getMessage());
+            return null;
         }
     }
 
     
-    // verifica o estoque usando o sku
+    public void removerProduto(int sku, int quantidade) {
+        try {
+            if (sku <= 0 || quantidade <= 0) {
+                if (quantidade < 0) {
+                    throw new PrecoInvalidoException("Quantidade inválida: " + quantidade); // Use PrecoInvalidoException for negative quantity
+                } else {
+                    throw new SkuInvalidoException("SKU inválido: " + sku); // Use SkuInvalidoException for invalid SKU
+                }
+            }
 
-    public Storage verificarEstoque(int sku) {
-        if (sku <= 0) {
-            throw new IllegalArgumentException("SKU invalido");}
+            // Chamada do método get para obter o objeto Storage do mapa
+            Storage storage = estoque.get(sku);
 
-        return estoque.get(sku); // retorna o objeto Storage associado ao sku, ou null se não existir.
+            if (storage != null) { // Verifica se o objeto Storage foi encontrado no mapa
+                int quantidadeAtual = storage.getQuantidade();
+
+                if (quantidadeAtual < quantidade) {
+                    throw new QuantidadeInvalidaException("Quantidade excede o estoque disponível");
+                }
+
+                // (Optional) Add price validation logic here
+
+                storage.setQuantidade(quantidadeAtual - quantidade);
+
+                if (storage.getQuantidade() == 0) {
+                    estoque.remove(sku);
+                }
+            } else {
+                throw new EstoqueException("Produto não encontrado no estoque");
+            }
+        } catch (EstoqueException e) {
+            System.err.println(e.getMessage());
         }
+    }
 
-    // interface PrecoService
-    // define uma interface para serviços de consulta de preços para usar no mock
+    public Storage verificarEstoque(int sku) throws SkuInvalidoException {
+    	  if (sku <= 0) {
+    	      throw new SkuInvalidoException("SKU inválido: " + sku);
+    	  }
+    	  return estoque.get(sku); // Permite que EstoqueException propague para cima
+    	}
 
     interface PrecoService {
-        double getPreco(int sku); // metodo para obter o preço de um produto.
-        }
+        double getPreco(int sku);
+    }
 }
