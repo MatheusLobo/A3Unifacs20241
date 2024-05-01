@@ -16,7 +16,7 @@ public class InventoryManager {
     public Storage adicionarProduto(int sku, String nome, int quantidade, double valor) {
         try {
             if (sku < 0) {
-                throw new EstoqueException("SKU inválido: " + sku);
+                throw new SkuInvalidoException("SKU inválido: " + sku);
             }
             if (nome == null || nome.isEmpty()) {
                 throw new EstoqueException("Nome inválido: " + nome);
@@ -27,7 +27,7 @@ public class InventoryManager {
 
             if (valor <= 0) {
                 if (precoService == null) {
-                    throw new EstoqueException("Serviço de preço não configurado");
+                    throw new PrecoInvalidoException("Serviço de preço não configurado");
                 }
                 valor = precoService.getPreco(sku);
             }
@@ -46,13 +46,13 @@ public class InventoryManager {
         try {
             if (sku <= 0 || quantidade <= 0) {
                 if (quantidade < 0) {
-                    throw new PrecoInvalidoException("Quantidade inválida: " + quantidade); // Use PrecoInvalidoException for negative quantity
+                    throw new QuantidadeInvalidaException("Quantidade inválida: " + quantidade);
                 } else {
-                    throw new SkuInvalidoException("SKU inválido: " + sku); // Use SkuInvalidoException for invalid SKU
+                    throw new SkuInvalidoException("SKU inválido: " + sku);
                 }
             }
 
-            // Chamada do método get para obter o objeto Storage do mapa
+            // Chamada do metodo get para obter o objeto Storage do mapa
             Storage storage = estoque.get(sku);
 
             if (storage != null) { // Verifica se o objeto Storage foi encontrado no mapa
@@ -61,8 +61,6 @@ public class InventoryManager {
                 if (quantidadeAtual < quantidade) {
                     throw new QuantidadeInvalidaException("Quantidade excede o estoque disponível");
                 }
-
-                // (Optional) Add price validation logic here
 
                 storage.setQuantidade(quantidadeAtual - quantidade);
 
@@ -81,7 +79,7 @@ public class InventoryManager {
     	  if (sku <= 0) {
     	      throw new SkuInvalidoException("SKU inválido: " + sku);
     	  }
-    	  return estoque.get(sku); // Permite que EstoqueException propague para cima
+    	  return estoque.get(sku); 
     	}
 
     interface PrecoService {

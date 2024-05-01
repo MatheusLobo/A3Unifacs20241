@@ -50,7 +50,7 @@ public class InventoryManagerTest {
         } catch (QuantidadeInvalidaException e) {
         	// excecao esperada
         } catch (EstoqueException e) {
-            // Nao esperado, falhar o teste se isso acontecer
+        
             fail("Deveria ser QuantidadeInvalidaException, mas foi EstoqueException");
         }
     }
@@ -62,7 +62,7 @@ public class InventoryManagerTest {
         } catch (QuantidadeInvalidaException e) {
             // excecao esperada
         } catch (EstoqueException e) {
-            // Nao esperado, falhar o teste se isso acontecer
+            
             fail("Deveria ser QuantidadeInvalidaException, mas foi EstoqueException");
         }
     }
@@ -83,11 +83,11 @@ public class InventoryManagerTest {
         // Configuracao do mock para retornar um obj Storage quando o metodo get for chamado com o sku 3232
         when(estoqueMock.get(eq(sku))).thenReturn(new Storage(sku, nome, quantidadeInicial, valor));
 
-        // Execução do metodo a ser testado
+        // Execucao do metodo a ser testado
         try {
             inventoryManager.removerProduto(sku, quantidadeRemover); //remove uma quantidade do produto
         } catch (EstoqueException e) {
-            // Se uma EstoqueException for lançada, o teste falhará
+            // Se uma EstoqueException for lancada, o teste falhara
             fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
         }
 
@@ -101,27 +101,17 @@ public class InventoryManagerTest {
             inventoryManager.removerProduto(0, 5); //tentativa de remover produto com SKU invalido
         } catch (EstoqueException e) {
             assertEquals("SKU inválido: 0", e.getMessage());
+            throw e; // Garante que o teste falhe se a excecao nao for lançada
+        }
+    }
+
+    @Test(expected = QuantidadeInvalidaException.class)
+    public void removerProdutoQuantidadeInvalida() { //teste negativo com excecao
+        try {
+            inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade invalida
+        } catch (QuantidadeInvalidaException e) {
+            assertEquals("Quantidade inválida: -5", e.getMessage());
             throw e; // Garante que o teste falhe se a exceção nao for lançada
-        }
-    }
-
-    @Test(expected = PrecoInvalidoException.class)
-    public void removerProdutoQuantidadeInvalida() { //teste negativo com exceção
-        try {
-            inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade inválida
-        } catch (PrecoInvalidoException e) {
-            assertEquals("Quantidade inválida: -5", e.getMessage());
-            throw e; // Garante que o teste falhe se a exceção não for lançada
-        }
-    }
-
-    @Test(expected = PrecoInvalidoException.class)
-    public void removerProdutoComValorInvalido() { //teste negativo com exceçao
-        try {
-            inventoryManager.removerProduto(50, -5); //tentativa de remover produto com valor invalida
-        } catch (PrecoInvalidoException e) {
-            assertEquals("Quantidade inválida: -5", e.getMessage());
-            throw e; // Garante que o teste falhe se a exceção não for lançada
         }
     }
 
@@ -164,13 +154,13 @@ public class InventoryManagerTest {
         int quantidadeEstoque = 10;
         double precoProdutoExterno = 55.00;
 
-        // Define o comportamento do serviço de preço antes de chamar o método de adição
+        // Define o comportamento do serviço de preco antes de chamar o método de adição
         when(precoServiceMock.getPreco(produtoSku)).thenReturn(precoProdutoExterno);
 
-        // Execução do método a ser testado
-        Storage storage = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); //adiciona produto com preço externo
+        // Execução do mettodo a ser testado
+        Storage storage = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); //adiciona produto com preco externo
 
-        // Verificação se o serviço de preço foi chamado com o SKU especificado
+        // Verificacao se o serviço de preço foi chamado com o SKU especificado
         verify(precoServiceMock).getPreco(produtoSku);
 
         // Verifica se o valor do produto corresponde ao preço externo
@@ -178,4 +168,5 @@ public class InventoryManagerTest {
 
         // Verifica se o produto foi adicionado ao estoque
         verify(estoqueMock).put(produtoSku, storage);
-    }}
+    }
+    }
