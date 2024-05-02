@@ -1,0 +1,76 @@
+
+                                     Unifacs 2024.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Alunos:
+Matheus Lobo de Souza Martins          
+William Bitencourt de Castro                
+Robert Dolly                                            
+Rafael Pereira Grigorio de Lacerda      
+Adailson Souza da Cunha                     
+I talo da conceição Araujo                     
+Anthony Clayton barros de Jesus        
+Marcos Leones Leite Souza                  
+Vinicius Rian de Jesus Moreira            
+Plano de Projeto para o Software LojaA3
+
+
+Introdução
+Este plano de projeto descreve as etapas necessárias para desenvolver e testar o software LojaA3. O software gerencia o estoque de produtos de uma loja, permitindo adicionar, remover e verificar produtos, além de atualizar o preço de um produto através de um serviço externo.
+Objetivos
+•	Desenvolver o software LojaA3 de acordo com os requisitos especificados.
+•	Implementar testes unitários para garantir a qualidade do código.
+•	Documentar o código e o plano de projeto.
+Escopo
+O projeto abrangerá o desenvolvimento das seguintes funcionalidades:
+•	Adicionar um novo produto ao estoque.
+•	Remover um produto do estoque.
+•	Verificar a quantidade de um produto no estoque.
+•	Atualizar o preço de um produto através de um serviço externo.
+Requisitos
+•	O software deve ser escrito em Java.
+•	O software deve utilizar a biblioteca JUnit e mockito para testes unitários.
+•	O software deve ser testado com casos de teste unitários que cubram todas as funcionalidades.
+Riscos
+•	Atraso no cronograma devido a problemas técnicos ou mudanças nos requisitos ou imprevistos.
+•	Erros no código que podem afetar a funcionalidade do software.
+•	Falta de comunicação entre a equipe do projeto.
+Mitigação de Riscos
+•	Monitorar o cronograma de perto e identificar possíveis atrasos.
+•	Implementar um processo de revisão de código rigoroso.
+•	Realizar reuniões regulares da equipe para garantir a comunicação eficaz.
+Plano de Testes Unitários
+Os testes unitários serão implementados usando a biblioteca JUnit/mockito. Os testes cobrirão todas as funcionalidades do software, incluindo:
+•	Adicionar um novo produto ao estoque.
+•	Remover um produto do estoque.
+•	Verificar a quantidade de um produto no estoque.
+•	Atualizar o preço de um produto através de um serviço externo.
+Os testes serão executados automaticamente durante o processo de compilação do software.
+Conclusão
+Este plano de projeto fornece uma visão geral das etapas necessárias para desenvolver e testar o software de manipulação de inventario de um armazém. O plano inclui um cronograma, recursos, riscos e um plano de testes unitários. Seguindo este plano, podemos garantir que o software seja desenvolvido e testado de acordo com os requisitos especificados.
+Observações
+•	Este plano de projeto é um exemplo e pode ser adaptado às necessidades específicas do seu projeto.
+•	É importante documentar todas as mudanças feitas no plano de projeto.
+•	A comunicação eficaz entre a equipe do projeto é essencial para o sucesso do projeto.
+Estratégias de Testes Unitários
+Além do plano de testes unitários descrito acima, algumas estratégias específicas de testes unitários que podem vir a ser utilizadas para o software da LojaA3 incluem:
+•	Testes de Caixa Branca: Testar o código interno do software para garantir que ele esteja funcionando conforme o esperado.
+•	Testes de Caixa Preta: Testar o software a partir de sua interface externa, sem se preocupar com o código interno.
+•	Testes de Integração: Testar como diferentes partes do software interagem entre si.
+•	Testes de Regressão: Testar o software após fazer alterações para garantir que as alterações não introduziram novos bugs.
+A escolha das estratégias de testes unitários dependerá das necessidades específicas do projeto.
