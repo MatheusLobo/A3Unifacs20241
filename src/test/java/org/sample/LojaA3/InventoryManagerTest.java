@@ -51,7 +51,7 @@ public class InventoryManagerTest {
         	// excecao esperada
         } catch (EstoqueException e) {
         
-            fail("Deveria ser QuantidadeInvalidaException, mas foi EstoqueException");
+            fail("Quantidade errada");
         }
     }
     
@@ -63,7 +63,7 @@ public class InventoryManagerTest {
             // excecao esperada
         } catch (EstoqueException e) {
             
-            fail("Deveria ser QuantidadeInvalidaException, mas foi EstoqueException");
+            fail("Quantidade errada");
         }
     }
               
@@ -100,7 +100,7 @@ public class InventoryManagerTest {
         try {
             inventoryManager.removerProduto(0, 5); //tentativa de remover produto com SKU invalido
         } catch (EstoqueException e) {
-            assertEquals("SKU inválido: 0", e.getMessage());
+            assertEquals("SKU invalido: 0", e.getMessage());
             throw e; // Garante que o teste falhe se a excecao nao for lançada
         }
     }
@@ -110,7 +110,7 @@ public class InventoryManagerTest {
         try {
             inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade invalida
         } catch (QuantidadeInvalidaException e) {
-            assertEquals("Quantidade inválida: -5", e.getMessage());
+            assertEquals("Quantidade invalida: -5", e.getMessage()); //verifica se dois valores são iguais e lança uma excecao
             throw e; // Garante que o teste falhe se a exceção nao for lançada
         }
     }
@@ -154,7 +154,7 @@ public class InventoryManagerTest {
         int quantidadeEstoque = 10;
         double precoProdutoExterno = 55.00;
 
-        // Define o comportamento do serviço de preco antes de chamar o método de adição
+        // Define o comportamento do serviço de preco antes de chamar o método de adicao
         when(precoServiceMock.getPreco(produtoSku)).thenReturn(precoProdutoExterno);
 
         // Execução do mettodo a ser testado
@@ -169,4 +169,4 @@ public class InventoryManagerTest {
         // Verifica se o produto foi adicionado ao estoque
         verify(estoqueMock).put(produtoSku, storage);
     }
-    }
+   }

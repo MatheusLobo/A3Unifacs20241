@@ -46,9 +46,9 @@ public class InventoryManager {
         try {
             if (sku <= 0 || quantidade <= 0) {
                 if (quantidade < 0) {
-                    throw new QuantidadeInvalidaException("Quantidade inválida: " + quantidade);
+                    throw new QuantidadeInvalidaException("Quantidade invalida: " + quantidade);
                 } else {
-                    throw new SkuInvalidoException("SKU inválido: " + sku);
+                    throw new SkuInvalidoException("SKU invalido: " + sku);
                 }
             }
 
@@ -59,7 +59,7 @@ public class InventoryManager {
                 int quantidadeAtual = storage.getQuantidade();
 
                 if (quantidadeAtual < quantidade) {
-                    throw new QuantidadeInvalidaException("Quantidade excede o estoque disponível");
+                    throw new QuantidadeInvalidaException("Quantidade excede o estoque disponivel");
                 }
 
                 storage.setQuantidade(quantidadeAtual - quantidade);
@@ -68,7 +68,7 @@ public class InventoryManager {
                     estoque.remove(sku);
                 }
             } else {
-                throw new EstoqueException("Produto não encontrado no estoque");
+                throw new EstoqueException("Produto nao encontrado no estoque");
             }
         } catch (EstoqueException e) {
             System.err.println(e.getMessage());
@@ -77,7 +77,7 @@ public class InventoryManager {
 
     public Storage verificarEstoque(int sku) throws SkuInvalidoException {
     	  if (sku <= 0) {
-    	      throw new SkuInvalidoException("SKU inválido: " + sku);
+    	      throw new SkuInvalidoException("SKU invalido: " + sku);
     	  }
     	  return estoque.get(sku); 
     	}

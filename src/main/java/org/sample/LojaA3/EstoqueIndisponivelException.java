@@ -8,7 +8,7 @@ public class EstoqueIndisponivelException extends RuntimeException {
         super(message);
     }
 
-    @Override
+    
     public String getMessage() {
         return super.getMessage();
     }
