@@ -68,3 +68,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
           REPOSITORY_URL: ${{ secrets.REPOSITORY_URL }}
+        run: npx semantic-release
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gqs
+          path: target/gqs-1.0-SNAPSHOT.jar
