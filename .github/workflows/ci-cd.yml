@@ -15,12 +15,8 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          java-version: '20'
+          java-version: '8'
           distribution: 'adopt'
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '20'
 
       - name: Build with Maven
         run: mvn clean install
@@ -72,10 +68,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
           REPOSITORY_URL: ${{ secrets.REPOSITORY_URL }}
-        run: npx semantic-release
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: gqs
-          path: target/gqs-1.0-SNAPSHOT.jar
