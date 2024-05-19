@@ -22,34 +22,60 @@ jobs:
         with:
           node-version: '20'
 
-      - run: mvn package
+      - name: Build with Maven
+        run: mvn clean install
 
-      - run: npm install -g @commitlint/cli
+      - name: Run Tests
+        run: mvn test
+
+      - name: Generate Jacoco Report
+        run: mvn jacoco:report
+
+      - name: Upload Jacoco Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
+
+      - name: SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar -Dsonar.projectKey=MatheusLobo_A3Unifacs20241 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+      - name: Install Commitlint
+        run: npm install -g @commitlint/cli
 
       - id: commit_hash
         run: echo "MAIN_COMMIT_HASH=$(git rev-parse main)" >> $GITHUB_ENV
 
-      - run: |
+      - name: Validate Commit Message
+        run: |
           commit_message=$(git log -1 --pretty=format:"%s" HEAD)
           if [[ ! $commit_message =~ ((build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.*\))?!?: .*) ]]; then
             echo "commit is not valid: '$commit_message'"
             exit 1
           fi
 
-      - run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/A3Unifacs20241" >> $GITHUB_ENV
+      - name: Set Repository URL
+        run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/A3Unifacs20241" >> $GITHUB_ENV
 
-      - run: echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}" >> $GITHUB_ENV
+      - name: Set NPM Token
+        run: echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}" >> $GITHUB_ENV
 
-      - run: npm ci
+      - name: Install NPM Packages
+        run: npm ci
 
-      - run: npm config -g set git-tag-version false
+      - name: Disable Git Tag Version
+        run: npm config -g set git-tag-version false
 
-      - env:
+      - name: Run Semantic Release
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
           REPOSITORY_URL: ${{ secrets.REPOSITORY_URL }}
         run: npx semantic-release
 
-      - uses: actions/upload-artifact@v2
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
         with:
           name: gqs
-          path: /target/gqs-1.0-SNAPSHOT.jar
+          path: target/gqs-1.0-SNAPSHOT.jar

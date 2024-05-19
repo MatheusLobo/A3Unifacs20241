@@ -25,29 +25,30 @@ public class InventoryManagerTest {
     private Storage storage; //objeto de armazenamento simulado
     
     @Test
-    public void adicionarProdutoSucesso() { //teste positivo
-        int sku = 3232;
-        String nome = "Camiseta";
-        int quantidade = 100;
-        double valor = 50.00;
+    public void adcionarProdutoSucesso() {
+    	int sku =3232;
+    	String nome = "Camiseta";
+    	int quantidade = 100;
+    	double valor = 50.00;
+    	
+    	Storage storage = null; //Objeto no armazem nao criado ainda
+    	
+    	try {// Tenta adcionar o produto no estoque
+    		storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+    		} catch (EstoqueException e) {// EstoqueException expected caso ouver problema com o estoque
+    			//Se o EstoqueException for ativado, o fail do mockito vai lancar uma mensagem personalizada dependendo do erro apresentado
+    			fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
+    		}
 
-        // Armazena o objeto retornado pelo metodo
-        Storage storage = null;
-        try {
-            storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //adiciona um produto
-        } catch (EstoqueException e) {
-            // Se uma EstoqueException for lancada, o teste falhara
-            fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
-        }
-
-        // Verifica se o mock foi chamado com o sku e o Storage correto
+        // Verifica se o mock foi chamado com o sku e o Storage correto e adciona ele com sucesso
         verify(estoqueMock).put(sku, storage); 
     }
+    
     @Test
     public void adicionarProdutoStorageNull() { //teste negativo com excecao
         try {
             inventoryManager.adicionarProduto(0, null, 0, 0); //tentativa de adicionar produto com parametros invalidos
-        } catch (QuantidadeInvalidaException e) {
+        } catch (QuantidadeInvalidaException e) { 	
         	// excecao esperada
         } catch (EstoqueException e) {
         
