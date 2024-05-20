@@ -170,4 +170,6 @@ public class InventoryManagerTest {
         // Verifica se o produto foi adicionado ao estoque
         verify(estoqueMock).put(produtoSku, storage);
     }
+    
+    
    }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.sample.LojaA3.InventoryManagerTest" time="0.445" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.sample.LojaA3.InventoryManagerTest" time="0.772" tests="10" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\MatheusLobo\git\Armazem\LojaA3\target\test-classes;C:\Users\MatheusLobo\git\Armazem\LojaA3\target\classes;C:\Users\MatheusLobo\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\MatheusLobo\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\MatheusLobo\.m2\repository\org\mockito\mockito-core\3.9.0\mockito-core-3.9.0.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy\1.10.20\byte-buddy-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy-agent\1.10.20\byte-buddy-agent-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;C:\Users\MatheusLobo\git\Armazem\LojaA3\target\classes;"/>
+    <property name="java.class.path" value="C:\Users\MatheusLobo\git\Armazem\LojaA3\target\test-classes;C:\Users\MatheusLobo\git\Armazem\LojaA3\target\classes;C:\Users\MatheusLobo\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\MatheusLobo\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\MatheusLobo\.m2\repository\org\mockito\mockito-core\3.9.0\mockito-core-3.9.0.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy\1.10.20\byte-buddy-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy-agent\1.10.20\byte-buddy-agent-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="BR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\MatheusLobo\AppData\Local\Temp\surefire6041021753635574959\surefirebooter15090997519794566339.jar C:\Users\MatheusLobo\AppData\Local\Temp\surefire6041021753635574959 2024-04-25T17-15-56_107-jvmRun1 surefire6731083245886368064tmp surefire_02990432033960009778tmp"/>
+    <property name="sun.java.command" value="C:\Users\MatheusLobo\AppData\Local\Temp\surefire11770464510845003501\surefirebooter9258557623594288992.jar C:\Users\MatheusLobo\AppData\Local\Temp\surefire11770464510845003501 2024-05-20T16-12-59_056-jvmRun1 surefire14765369507416867274tmp surefire_016778095797410314937tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\MatheusLobo\git\Armazem\LojaA3\target\test-classes;C:\Users\MatheusLobo\git\Armazem\LojaA3\target\classes;C:\Users\MatheusLobo\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\MatheusLobo\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\MatheusLobo\.m2\repository\org\mockito\mockito-core\3.9.0\mockito-core-3.9.0.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy\1.10.20\byte-buddy-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy-agent\1.10.20\byte-buddy-agent-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;C:\Users\MatheusLobo\git\Armazem\LojaA3\target\classes;"/>
+    <property name="surefire.test.class.path" value="C:\Users\MatheusLobo\git\Armazem\LojaA3\target\test-classes;C:\Users\MatheusLobo\git\Armazem\LojaA3\target\classes;C:\Users\MatheusLobo\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\MatheusLobo\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\MatheusLobo\.m2\repository\org\mockito\mockito-core\3.9.0\mockito-core-3.9.0.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy\1.10.20\byte-buddy-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\net\bytebuddy\byte-buddy-agent\1.10.20\byte-buddy-agent-1.10.20.jar;C:\Users\MatheusLobo\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\MatheusLobo"/>
     <property name="user.language" value="pt"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\MatheusLobo\AppData\Local\Temp\surefire6041021753635574959\surefirebooter15090997519794566339.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\MatheusLobo\AppData\Local\Temp\surefire11770464510845003501\surefirebooter9258557623594288992.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.1+12-LTS-29"/>
@@ -50,7 +50,7 @@
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-21\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-21/bin/server;C:/Program Files/Java/jdk-21/bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\MatheusLobo\AppData\Local\Microsoft\WindowsApps;C:\Users\MatheusLobo\AppData\Local\GitHubDesktop\bin;D:\apache-maven-3.9.6\bin;C:\Program Files\Java\jdk1.8.0_202\bin;C:\Users\MatheusLobo\AppData\Roaming\npm;C:\Program Files\nodejs\node_modules\npm\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.3.6\bin;;%JAVA_HOME%;;C:\Users\MatheusLobo\eclipse\java-2024-035\eclipse;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-21\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-21/bin/server;C:/Program Files/Java/jdk-21/bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\MatheusLobo\AppData\Local\Microsoft\WindowsApps;C:\Users\MatheusLobo\AppData\Local\GitHubDesktop\bin;D:\apache-maven-3.9.6\bin;C:\Program Files\Java\jdk1.8.0_202\bin;C:\Users\MatheusLobo\AppData\Roaming\npm;C:\Program Files\nodejs\node_modules\npm\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.3.6\bin;;%JAVA_HOME%;C:\Windows\system32;;C:\Users\MatheusLobo\eclipse\java-2024-035\eclipse;;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="Cp1252"/>
     <property name="java.vendor" value="Oracle Corporation"/>
@@ -58,13 +58,20 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="verificarEstoqueSucesso" classname="org.sample.LojaA3.InventoryManagerTest" time="0.372"/>
-  <testcase name="verificarEstoqueSkuInvalido" classname="org.sample.LojaA3.InventoryManagerTest" time="0"/>
-  <testcase name="adicionarProdutoStorageNull" classname="org.sample.LojaA3.InventoryManagerTest" time="0.001"/>
-  <testcase name="verificarEstoqueSkuNaoExiste" classname="org.sample.LojaA3.InventoryManagerTest" time="0.005"/>
+  <testcase name="verificarEstoqueSucesso" classname="org.sample.LojaA3.InventoryManagerTest" time="0.661"/>
+  <testcase name="verificarEstoqueSkuInvalido" classname="org.sample.LojaA3.InventoryManagerTest" time="0.001"/>
+  <testcase name="adicionarProdutoStorageNull" classname="org.sample.LojaA3.InventoryManagerTest" time="0.001">
+    <system-err><![CDATA[Nome inválido: null
+]]></system-err>
+  </testcase>
+  <testcase name="verificarEstoqueSkuNaoExiste" classname="org.sample.LojaA3.InventoryManagerTest" time="0.009"/>
+  <testcase name="adicionarProdutoSucessoComPrecoExterno" classname="org.sample.LojaA3.InventoryManagerTest" time="0.002"/>
+  <testcase name="removerProdutoSucesso" classname="org.sample.LojaA3.InventoryManagerTest" time="0.003"/>
   <testcase name="removerProdutoSkuInvalido" classname="org.sample.LojaA3.InventoryManagerTest" time="0"/>
-  <testcase name="adicionarProdutoSucesso" classname="org.sample.LojaA3.InventoryManagerTest" time="0"/>
-  <testcase name="removerProdutoComValorInvalido" classname="org.sample.LojaA3.InventoryManagerTest" time="0.001"/>
-  <testcase name="adicionarProdutoQuantidadeInvalida" classname="org.sample.LojaA3.InventoryManagerTest" time="0"/>
+  <testcase name="adcionarProdutoSucesso" classname="org.sample.LojaA3.InventoryManagerTest" time="0.001"/>
+  <testcase name="adicionarProdutoQuantidadeInvalida" classname="org.sample.LojaA3.InventoryManagerTest" time="0.001">
+    <system-err><![CDATA[Quantidade inválida: -10
+]]></system-err>
+  </testcase>
   <testcase name="removerProdutoQuantidadeInvalida" classname="org.sample.LojaA3.InventoryManagerTest" time="0"/>
 </testsuite>

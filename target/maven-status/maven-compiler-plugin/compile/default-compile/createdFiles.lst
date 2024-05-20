@@ -1,1 +1,8 @@
+org\sample\LojaA3\SkuInvalidoException.class
+org\sample\LojaA3\Storage.class
+org\sample\LojaA3\EstoqueException.class
+org\sample\LojaA3\InventoryManager$PrecoService.class
+org\sample\LojaA3\QuantidadeInvalidaException.class
 org\sample\LojaA3\InventoryManager.class
+org\sample\LojaA3\EstoqueIndisponivelException.class
+org\sample\LojaA3\PrecoInvalidoException.class
