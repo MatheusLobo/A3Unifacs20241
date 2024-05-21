@@ -8,11 +8,13 @@
     <version>1.0-SNAPSHOT</version>
     <name>gqs</name>
     <url>http://maven.apache.org</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
         <!-- JUnit 4 -->
         <dependency>
@@ -30,6 +32,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <!-- Compiler Plugin -->
@@ -76,7 +79,7 @@
                 </executions>
             </plugin>
 
-            <!-- SonarQube Maven Plugin -->
+            <!-- SonarCloud Maven Plugin -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
