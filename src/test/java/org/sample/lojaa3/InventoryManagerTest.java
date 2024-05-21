@@ -11,13 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.sample.lojaa3.InventoryManager;
-import org.sample.lojaa3.PriceInvalidException;
-import org.sample.lojaa3.QuantityInvalidException;
-import org.sample.lojaa3.SkuInvalidException;
-import org.sample.lojaa3.StockException;
-import org.sample.lojaa3.StockItem;
-import org.sample.lojaa3.StockUnavailableException;
 import org.sample.lojaa3.InventoryManager.PrecoService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -77,20 +70,20 @@ public class InventoryManagerTest {
     
     @Test
     public void removerProdutoSucesso() {
-        Map<Integer, StockItem> localEstoqueMock = mock(Map.class); // Renomeie esta variável para evitar shadowing
-        InventoryManager localInventoryManager = new InventoryManager(localEstoqueMock, null); // Renomeie esta variável para evitar shadowing
+        Map<Integer, StockItem> localEstoqueMock = mock(Map.class);
+        InventoryManager localInventoryManager = new InventoryManager(localEstoqueMock, null);
         int sku = 3232;
         String nome = "Camisa";
         int quantidadeInicial = 10;
         int quantidadeRemover = 5;
         double valor = 50.00;
-        when(localEstoqueMock.get(eq(sku))).thenReturn(new StockItem(sku, nome, quantidadeInicial, valor));
+        when(localEstoqueMock.get(sku)).thenReturn(new StockItem(sku, nome, quantidadeInicial, valor));
         try {
             localInventoryManager.removerProduto(sku, quantidadeRemover);
         } catch (StockException e) {
             fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
         }
-        verify(localEstoqueMock).get(eq(sku));
+        verify(localEstoqueMock).get(sku);
         assertEquals(quantidadeInicial - quantidadeRemover, ((StockItem) localEstoqueMock.get(sku)).getQuantidade());
     }
 
@@ -101,10 +94,9 @@ public class InventoryManagerTest {
             inventoryManager.removerProduto(0, 5);
         } catch (StockException e) {
             assertEquals("SKU invalido: 0", e.getMessage());
-            throw e; 
+            throw e;
         }
     }
-
    
     @Test
     public void verificarEstoqueSucesso() {
@@ -162,7 +154,7 @@ public class InventoryManagerTest {
         assertEquals(nome, localStockItem.getNome());
         assertEquals(quantidade, localStockItem.getQuantidade());
         assertEquals(valor, localStockItem.getValor(), 0.01);
-        verify(estoqueMock).put(eq(sku), eq(localStockItem));
+        verify(estoqueMock).put(sku, localStockItem);
     }
  
     @Test(expected = PriceInvalidException.class)
@@ -171,12 +163,8 @@ public class InventoryManagerTest {
         String nome = "Camiseta";
         int quantidade = 10;
         double valor = 0.00;
-
-        when(precoServiceMock.getPreco(eq(sku))).thenThrow(PriceInvalidException.class);
-
+        when(precoServiceMock.getPreco(sku)).thenThrow(PriceInvalidException.class);
         inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
-
-       
     }
     @Test
     public void storageSettersGetters() {
@@ -208,9 +196,7 @@ public class InventoryManagerTest {
         String nome = "Camiseta";
         int quantidade = 50;
         double valor = 0.0;
-
-        when(precoServiceMock.getPreco(eq(sku))).thenReturn(0.0);
-
+        when(precoServiceMock.getPreco(sku)).thenReturn(0.0);
         inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
     }
     @Test(expected = StockUnavailableException.class)
