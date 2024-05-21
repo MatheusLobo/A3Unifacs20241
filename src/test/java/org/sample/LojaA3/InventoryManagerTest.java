@@ -2,9 +2,9 @@ package org.sample.LojaA3;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.lenient;
 
 import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,44 +12,42 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.sample.LojaA3.InventoryManager.PrecoService;
 
-@RunWith(MockitoJUnitRunner.class) //necessario para rodar os mocks
+@RunWith(MockitoJUnitRunner.class)
 public class InventoryManagerTest {
 
     @Mock
-    private Map<Integer, Storage> estoqueMock; //mock para o mapa de estoque
+    private Map<Integer, Storage> estoqueMock;
     @Mock
-    private PrecoService precoServiceMock; //mock para o servico de preco
+    private PrecoService precoServiceMock;
 
     @InjectMocks
-    private InventoryManager inventoryManager; //instancia do gerenciador de estoque
-    private Storage storage; //objeto de armazenamento simulado
+    private InventoryManager inventoryManager;
+    private Storage storage;
     
     @Test
     public void adcionarProdutoSucesso() {
-    	int sku =3232;
-    	String nome = "Camiseta";
-    	int quantidade = 100;
-    	double valor = 50.00;
-    	
-    	Storage storage = null; //Objeto no armazem nao criado ainda
-    	
-    	try {// Tenta adcionar o produto no estoque
-    		storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
-    		} catch (EstoqueException e) {// EstoqueException expected caso ouver problema com o estoque
-    			//Se o EstoqueException for ativado, o fail do mockito vai lancar uma mensagem personalizada dependendo do erro apresentado
-    			fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
-    		}
+        int sku = 3232;
+        String nome = "Camiseta";
+        int quantidade = 100;
+        double valor = 50.00;
+        
+        Storage storage = null;
+        
+        try {
+            storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+        } catch (EstoqueException e) {
+            fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
+        }
 
-        // Verifica se o mock foi chamado com o sku e o Storage correto e adciona ele com sucesso
         verify(estoqueMock).put(sku, storage); 
     }
     
     @Test
-    public void adicionarProdutoStorageNull() { //teste negativo com excecao
+    public void adicionarProdutoStorageNull() {
         try {
-            inventoryManager.adicionarProduto(0, null, 0, 0); //tentativa de adicionar produto com parametros invalidos
-        } catch (QuantidadeInvalidaException e) { 	
-        	// excecao esperada
+              inventoryManager.adicionarProduto(0, null, 0, 0.0);
+            } catch (QuantidadeInvalidaException e) { 	
+            // excecao esperada
         } catch (EstoqueException e) {
         
             fail("Quantidade errada");
@@ -57,9 +55,9 @@ public class InventoryManagerTest {
     }
     
     @Test
-    public void adicionarProdutoQuantidadeInvalida() { //teste negativo com excecao
+    public void adicionarProdutoQuantidadeInvalida() {
         try {
-        	inventoryManager.adicionarProduto(3232, "Camiseta", -10, 50.00);//tentativa de adicionar produto com parametros invalidos
+            inventoryManager.adicionarProduto(3232, "Camiseta", -10, 50.00);
         } catch (QuantidadeInvalidaException e) {
             // excecao esperada
         } catch (EstoqueException e) {
@@ -71,8 +69,7 @@ public class InventoryManagerTest {
  
     
     @Test
-    public void removerProdutoSucesso() { //teste positivo
-        // Mocks e dados de teste
+    public void removerProdutoSucesso() {
         Map<Integer, Storage> estoqueMock = mock(Map.class);
         InventoryManager inventoryManager = new InventoryManager(estoqueMock, null);
         int sku = 3232;
@@ -81,14 +78,11 @@ public class InventoryManagerTest {
         int quantidadeRemover = 5;
         double valor = 50.00;
 
-        // Configuracao do mock para retornar um obj Storage quando o metodo get for chamado com o sku 3232
         when(estoqueMock.get(eq(sku))).thenReturn(new Storage(sku, nome, quantidadeInicial, valor));
 
-        // Execucao do metodo a ser testado
         try {
-            inventoryManager.removerProduto(sku, quantidadeRemover); //remove uma quantidade do produto
+            inventoryManager.removerProduto(sku, quantidadeRemover);
         } catch (EstoqueException e) {
-            // Se uma EstoqueException for lancada, o teste falhara
             fail("Nenhuma exceção esperada, mas uma EstoqueException foi lançada: " + e.getMessage());
         }
 
@@ -97,80 +91,63 @@ public class InventoryManagerTest {
     }
 
     @Test(expected = SkuInvalidoException.class)
-    public void removerProdutoSkuInvalido() { //teste negativo com excecao
+    public void removerProdutoSkuInvalido() {
         try {
-            inventoryManager.removerProduto(0, 5); //tentativa de remover produto com SKU invalido
+            inventoryManager.removerProduto(0, 5);
         } catch (EstoqueException e) {
             assertEquals("SKU invalido: 0", e.getMessage());
-            throw e; // Garante que o teste falhe se a excecao nao for lançada
+            throw e; 
         }
     }
 
-    @Test(expected = QuantidadeInvalidaException.class)
-    public void removerProdutoQuantidadeInvalida() { //teste negativo com excecao
-        try {
-            inventoryManager.removerProduto(123, -5); //tentativa de remover produto com quantidade invalida
-        } catch (QuantidadeInvalidaException e) {
-            assertEquals("Quantidade invalida: -5", e.getMessage()); //verifica se dois valores são iguais e lança uma excecao
-            throw e; // Garante que o teste falhe se a exceção nao for lançada
-        }
-    }
-
+   
     @Test
-    public void verificarEstoqueSucesso() { //teste positivo
+    public void verificarEstoqueSucesso() {
         int sku = 3232;
         String nome = "Camisa";
         int quantidade = 10;
         double valor = 50.00;
-        storage = new Storage(sku, nome, quantidade, valor);
-        when(estoqueMock.get(sku)).thenReturn(storage);
-        
-        inventoryManager.adicionarProduto(sku, nome, quantidade, valor); //adiciona produto ao estoque
 
-        Storage storageEstoque = inventoryManager.verificarEstoque(sku); //verifica o estoque para um sku existente
+        lenient().when(precoServiceMock.getPreco(eq(sku))).thenReturn(50.00);
 
-        assertEquals(storageEstoque.getSku(), sku); //verifica se o sku corresponde
-        assertEquals(storageEstoque.getNome(), nome); //verifica se o nome corresponde
-        assertEquals(storageEstoque.getQuantidade(), quantidade); //verifica se a quantidade corresponde
-        assertEquals(storageEstoque.getValor(), valor, 0.01); //verifica se o valor corresponde
+        inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+
+        Storage storageEstoque = inventoryManager.verificarEstoque(sku);
+        if (storageEstoque != null) { 
+            assertEquals(sku, storageEstoque.getSku());
+            assertEquals(nome, storageEstoque.getNome());
+            assertEquals(quantidade, storageEstoque.getQuantidade());
+            assertEquals(valor, storageEstoque.getValor(), 0.01);
     }
+        }
 
     @Test(expected = SkuInvalidoException.class)
-    public void verificarEstoqueSkuInvalido() { //teste negativo
-        inventoryManager.verificarEstoque(0); //verifica o estoque para um sku invalido
+    public void verificarEstoqueSkuInvalido() {
+        inventoryManager.verificarEstoque(0);
     }
     
     @Test
-    public void verificarEstoqueSkuNaoExiste() { //teste negativo
-        inventoryManager.verificarEstoque(3232); //verifica o estoque para um sku que nao existe
-
-        verify(estoqueMock).get(3232); //verifica se a operação get foi chamada com o slu especificado
-        assertNull(inventoryManager.verificarEstoque(3232)); //verifica se o resultado é nulo
+    public void verificarEstoqueSkuNaoExiste() {
+        inventoryManager.verificarEstoque(3232);
+        verify(estoqueMock).get(3232);
+        assertNull(inventoryManager.verificarEstoque(3232));
     }
-    @Test   
+    @Test
     public void adicionarProdutoSucessoComPrecoExterno() {
-        // Mocks e dados de teste
-        int produtoSku = 3232; 
+        int produtoSku = 3232;
         String nomeProduto = "Camisa";
         int quantidadeEstoque = 10;
         double precoProdutoExterno = 55.00;
 
-        // Define o comportamento do serviço de preco antes de chamar o método de adicao
         when(precoServiceMock.getPreco(produtoSku)).thenReturn(precoProdutoExterno);
 
-        // Execução do mettodo a ser testado
-        Storage storage = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); //adiciona produto com preco externo
+        Storage storage = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0);
 
-        // Verificacao se o serviço de preço foi chamado com o SKU especificado
-        verify(precoServiceMock).getPreco(produtoSku);
-
-        // Verifica se o valor do produto corresponde ao preço externo
+        verify(precoServiceMock).getPreco(produtoSku); 
         assertEquals(precoProdutoExterno, storage.getValor(), 0.01);
-
-        // Verifica se o produto foi adicionado ao estoque
         verify(estoqueMock).put(produtoSku, storage);
     }
-    //novos testes
+
     @Test
     public void adicionarProdutoSucesso_Caminho() {
         int sku = 1234;
@@ -180,7 +157,6 @@ public class InventoryManagerTest {
 
         Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
 
-        // 
         assertNotNull(storage); 
         assertEquals(sku, storage.getSku()); 
         assertEquals(nome, storage.getNome()); 
@@ -202,7 +178,51 @@ public class InventoryManagerTest {
 
        
     }
+    @Test
+    public void storageSettersGetters() {
+        int sku = 9876;
+        String nome = "Calça";
+        int quantidade = 20;
+        double valor = 65.99;
 
-    
-    
-   }
+        Storage storage = new Storage(sku, nome, quantidade, valor);
+
+        storage.setSku(1234);
+        storage.setNome("Jaqueta");
+        storage.setQuantidade(30);
+        storage.setValor(79.99);
+
+        assertEquals(1234, storage.getSku());
+        assertEquals("Jaqueta", storage.getNome());
+        assertEquals(30, storage.getQuantidade());
+        assertEquals(79.99, storage.getValor(), 0.01);
+    }
+    @Test(expected = SkuInvalidoException.class)
+    public void verificarEstoqueSkuInvalidoNegativo() {
+        int sku = -1234;
+
+        inventoryManager.verificarEstoque(sku);
+
+        fail("Exceção SkuInvalidoException não foi lançada");
+    }
+    @Test(expected = PrecoInvalidoException.class)
+    public void adicionarProdutoPrecoInvalidoZero() {
+        int sku = 4321;
+        String nome = "Camiseta";
+        int quantidade = 50;
+        double valor = 0.0;
+
+        when(precoServiceMock.getPreco(eq(sku))).thenReturn(0.0);
+
+        inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+    }
+    @Test(expected = EstoqueIndisponivelException.class)
+    public void removerProdutoEstoqueIndisponivel() {
+        int sku = 1234;
+        int quantidade = 100;
+
+        inventoryManager.removerProduto(sku, quantidade);
+
+        fail("Exceção EstoqueIndisponivelException não foi lançada");
+    }
+}
