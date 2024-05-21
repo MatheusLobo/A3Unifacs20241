@@ -12,11 +12,11 @@ public class InventoryManager {
         this.estoque = estoque;
         this.precoService = precoService;
     }
-
+    public static final String SKU_INVALID_MESSAGE = "SKU inválido: ";
     public StockItem adicionarProduto(int sku, String nome, int quantidade, Double valor) {
         try {
             if (sku <= 0) {
-                throw new SkuInvalidException("SKU inválido: " + sku);
+            	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
             }
             if (nome == null || nome.isEmpty()) {
                 throw new StockException("Nome inválido: " + nome);
@@ -48,7 +48,7 @@ public class InventoryManager {
     
     public void removerProduto(int sku, int quantidade) throws StockException {
         if (sku <= 0) {
-            throw new SkuInvalidException("SKU inválido: " + sku);
+        	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
         }
         if (quantidade <= 0) {
             throw new QuantityInvalidException("Quantidade inválida: " + quantidade);
@@ -69,7 +69,7 @@ public class InventoryManager {
 
     public StockItem verificarEstoque(int sku) throws SkuInvalidException {
         if (sku <= 0) {
-            throw new SkuInvalidException("SKU inválido: " + sku);
+        	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
         }
         return estoque.get(sku);
     }
