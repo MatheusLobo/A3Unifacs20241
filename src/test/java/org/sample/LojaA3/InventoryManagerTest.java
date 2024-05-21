@@ -136,31 +136,26 @@ public class InventoryManagerTest {
         String nomeProduto = "Camisa";
         int quantidadeEstoque = 10;
         double precoProdutoExterno = 55.00;
-
         when(precoServiceMock.getPreco(produtoSku)).thenReturn(precoProdutoExterno);
-
-        StockItem stockItem = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0);
-
-        verify(precoServiceMock).getPreco(produtoSku); 
-        assertEquals(precoProdutoExterno, stockItem.getValor(), 0.01);
-        verify(estoqueMock).put(produtoSku, stockItem);
+        StockItem localStockItem = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); // Renomeie esta variável para evitar shadowing
+        verify(precoServiceMock).getPreco(produtoSku);
+        assertEquals(precoProdutoExterno, localStockItem.getValor(), 0.01);
+        verify(estoqueMock).put(produtoSku, localStockItem);
     }
-
+    
     @Test
     public void adicionarProdutoSucesso_Caminho() {
         int sku = 1234;
         String nome = "Camiseta";
         int quantidade = 10;
         double valor = 20.00;
-
-        StockItem stockItem = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
-
-        assertNotNull(stockItem); 
-        assertEquals(sku, stockItem.getSku()); 
-        assertEquals(nome, stockItem.getNome()); 
-        assertEquals(quantidade, stockItem.getQuantidade()); 
-        assertEquals(valor, stockItem.getValor(), 0.01); 
-        verify(estoqueMock).put(eq(sku), eq(stockItem)); 
+        StockItem localStockItem = inventoryManager.adicionarProduto(sku, nome, quantidade, valor); // Renomeie esta variável para evitar shadowing
+        assertNotNull(localStockItem);
+        assertEquals(sku, localStockItem.getSku());
+        assertEquals(nome, localStockItem.getNome());
+        assertEquals(quantidade, localStockItem.getQuantidade());
+        assertEquals(valor, localStockItem.getValor(), 0.01);
+        verify(estoqueMock).put(eq(sku), eq(localStockItem));
     }
  
     @Test(expected = PriceInvalidException.class)
@@ -182,18 +177,15 @@ public class InventoryManagerTest {
         String nome = "Calça";
         int quantidade = 20;
         double valor = 65.99;
-
-        StockItem stockItem = new StockItem(sku, nome, quantidade, valor);
-
-        stockItem.setSku(1234);
-        stockItem.setNome("Jaqueta");
-        stockItem.setQuantidade(30);
-        stockItem.setValor(79.99);
-
-        assertEquals(1234, stockItem.getSku());
-        assertEquals("Jaqueta", stockItem.getNome());
-        assertEquals(30, stockItem.getQuantidade());
-        assertEquals(79.99, stockItem.getValor(), 0.01);
+        StockItem localStockItem = new StockItem(sku, nome, quantidade, valor); // Renomeie esta variável para evitar shadowing
+        localStockItem.setSku(1234);
+        localStockItem.setNome("Jaqueta");
+        localStockItem.setQuantidade(30);
+        localStockItem.setValor(79.99);
+        assertEquals(1234, localStockItem.getSku());
+        assertEquals("Jaqueta", localStockItem.getNome());
+        assertEquals(30, localStockItem.getQuantidade());
+        assertEquals(79.99, localStockItem.getValor(), 0.01);
     }
     @Test(expected = SkuInvalidException.class)
     public void verificarEstoqueSkuInvalidoNegativo() {
