@@ -1,10 +1,10 @@
 package org.sample.LojaA3;
 
-public class QuantidadeInvalidaException extends RuntimeException {
+public class PriceInvalidException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public QuantidadeInvalidaException(String message) {
+    public PriceInvalidException(String message) {
         super(message);
     }
 

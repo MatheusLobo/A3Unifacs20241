@@ -1,10 +1,10 @@
 package org.sample.LojaA3;
 
-public class EstoqueException extends RuntimeException {
+public class StockException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public EstoqueException(String message) {
+    public StockException(String message) {
         super(message);
     }
 }

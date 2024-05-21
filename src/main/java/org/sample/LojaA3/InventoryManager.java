@@ -1,28 +1,28 @@
 package org.sample.LojaA3;
 
-import org.sample.LojaA3.EstoqueException;
+import org.sample.LojaA3.StockException;
 import java.util.Map;
 
 public class InventoryManager {
 
-    private final Map<Integer, Storage> estoque;
+    private final Map<Integer, StockItem> estoque;
     private final PrecoService precoService;
 
-    public InventoryManager(Map<Integer, Storage> estoque, PrecoService precoService) {
+    public InventoryManager(Map<Integer, StockItem> estoque, PrecoService precoService) {
         this.estoque = estoque;
         this.precoService = precoService;
     }
 
-    public Storage adicionarProduto(int sku, String nome, int quantidade, Double valor) {
+    public StockItem adicionarProduto(int sku, String nome, int quantidade, Double valor) {
         try {
             if (sku <= 0) {
-                throw new SkuInvalidoException("SKU inválido: " + sku);
+                throw new SkuInvalidException("SKU inválido: " + sku);
             }
             if (nome == null || nome.isEmpty()) {
-                throw new EstoqueException("Nome inválido: " + nome);
+                throw new StockException("Nome inválido: " + nome);
             }
             if (quantidade <= 0) {
-                throw new QuantidadeInvalidaException("Quantidade inválida: " + quantidade);
+                throw new QuantityInvalidException("Quantidade inválida: " + quantidade);
             }
 
             double precoFinal;
@@ -33,43 +33,43 @@ public class InventoryManager {
                 }
 
             if (precoFinal <= 0) {
-                throw new PrecoInvalidoException("Preço inválido: " + precoFinal);
+                throw new PriceInvalidException("Preço inválido: " + precoFinal);
             }
 
-            Storage storage = new Storage(sku, nome, quantidade, precoFinal);
-            estoque.put(storage.getSku(), storage);
-            return storage;
-        } catch (EstoqueException | QuantidadeInvalidaException | SkuInvalidoException e) {
+            StockItem stockItem = new StockItem(sku, nome, quantidade, precoFinal);
+            estoque.put(stockItem.getSku(), stockItem);
+            return stockItem;
+        } catch (StockException | QuantityInvalidException | SkuInvalidException e) {
             System.err.println(e.getMessage());
             return null;
         }
     }
 
     
-    public void removerProduto(int sku, int quantidade) throws EstoqueException {
+    public void removerProduto(int sku, int quantidade) throws StockException {
         if (sku <= 0) {
-            throw new SkuInvalidoException("SKU inválido: " + sku);
+            throw new SkuInvalidException("SKU inválido: " + sku);
         }
         if (quantidade <= 0) {
-            throw new QuantidadeInvalidaException("Quantidade inválida: " + quantidade);
+            throw new QuantityInvalidException("Quantidade inválida: " + quantidade);
         }
 
-        Storage storage = estoque.get(sku);
-        if (storage == null) {
-            throw new EstoqueIndisponivelException("Produto não encontrado no estoque: SKU " + sku);
+        StockItem stockItem = estoque.get(sku);
+        if (stockItem == null) {
+            throw new StockUnavailableException("Produto não encontrado no estoque: SKU " + sku);
         }
 
-        int estoqueAtual = storage.getQuantidade();
+        int estoqueAtual = stockItem.getQuantidade();
         if (quantidade > estoqueAtual) {
-            throw new EstoqueIndisponivelException("Estoque indisponível para remover " + quantidade + " unidades do produto: SKU " + sku);
+            throw new StockUnavailableException("Estoque indisponível para remover " + quantidade + " unidades do produto: SKU " + sku);
         }
 
-        storage.setQuantidade(estoqueAtual - quantidade);
+        stockItem.setQuantidade(estoqueAtual - quantidade);
     }
 
-    public Storage verificarEstoque(int sku) throws SkuInvalidoException {
+    public StockItem verificarEstoque(int sku) throws SkuInvalidException {
         if (sku <= 0) {
-            throw new SkuInvalidoException("SKU inválido: " + sku);
+            throw new SkuInvalidException("SKU inválido: " + sku);
         }
         return estoque.get(sku);
     }

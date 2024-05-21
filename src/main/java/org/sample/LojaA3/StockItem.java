@@ -1,7 +1,7 @@
 package org.sample.LojaA3;
 
 
-public class Storage {
+public class StockItem {
 
     private int sku; //identificador único do produto sku.
     private String nome; //nome do produto.
@@ -10,7 +10,7 @@ public class Storage {
 
     //construtor da classe:
   
-    public Storage(int sku, String nome, int quantidade, double valor) {
+    public StockItem(int sku, String nome, int quantidade, double valor) {
         this.sku = sku;
         this.nome = nome;
         this.quantidade = quantidade;
