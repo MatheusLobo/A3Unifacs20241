@@ -1,4 +1,4 @@
-package org.sample.LojaA3;
+package org.sample.lojaa3;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -11,7 +11,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.sample.LojaA3.InventoryManager.PrecoService;
+import org.sample.lojaa3.InventoryManager;
+import org.sample.lojaa3.PriceInvalidException;
+import org.sample.lojaa3.QuantityInvalidException;
+import org.sample.lojaa3.SkuInvalidException;
+import org.sample.lojaa3.StockException;
+import org.sample.lojaa3.StockItem;
+import org.sample.lojaa3.StockUnavailableException;
+import org.sample.lojaa3.InventoryManager.PrecoService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InventoryManagerTest {

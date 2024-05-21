@@ -1,4 +1,4 @@
-package org.sample.LojaA3;
+package org.sample.lojaa3;
 
 public class StockException extends RuntimeException {
 

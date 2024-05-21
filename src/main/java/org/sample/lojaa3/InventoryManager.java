@@ -1,6 +1,6 @@
-package org.sample.LojaA3;
+package org.sample.lojaa3;
 
-import org.sample.LojaA3.StockException;
+
 import java.util.Map;
 
 public class InventoryManager {
