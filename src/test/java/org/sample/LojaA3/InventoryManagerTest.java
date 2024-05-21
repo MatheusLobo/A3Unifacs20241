@@ -170,6 +170,39 @@ public class InventoryManagerTest {
         // Verifica se o produto foi adicionado ao estoque
         verify(estoqueMock).put(produtoSku, storage);
     }
+    //novos testes
+    @Test
+    public void adicionarProdutoSucesso_Caminho() {
+        int sku = 1234;
+        String nome = "Camiseta";
+        int quantidade = 10;
+        double valor = 20.00;
+
+        Storage storage = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+
+        // 
+        assertNotNull(storage); 
+        assertEquals(sku, storage.getSku()); 
+        assertEquals(nome, storage.getNome()); 
+        assertEquals(quantidade, storage.getQuantidade()); 
+        assertEquals(valor, storage.getValor(), 0.01); 
+        verify(estoqueMock).put(eq(sku), eq(storage)); 
+    }
+ 
+    @Test(expected = PrecoInvalidoException.class)
+    public void adicionarProdutoPrecoInvalido() {
+        int sku = 1234;
+        String nome = "Camiseta";
+        int quantidade = 10;
+        double valor = 0.00;
+
+        when(precoServiceMock.getPreco(eq(sku))).thenThrow(PrecoInvalidoException.class);
+
+        inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+
+       
+    }
+
     
     
    }
