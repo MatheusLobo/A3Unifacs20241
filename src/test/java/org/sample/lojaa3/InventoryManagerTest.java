@@ -88,14 +88,11 @@ public class InventoryManagerTest {
     }
 
 
-    @Test(expected = SkuInvalidException.class)
+    @Test
     public void removerProdutoSkuInvalido() {
-        try {
+        assertThrows(SkuInvalidException.class, () -> {
             inventoryManager.removerProduto(0, 5);
-        } catch (StockException e) {
-            assertEquals("SKU invalido: 0", e.getMessage());
-            throw e;
-        }
+        });
     }
    
     @Test
