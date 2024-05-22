@@ -22,8 +22,9 @@ public class InventoryManagerTest {
     private PrecoService precoServiceMock;
     @InjectMocks
     private InventoryManager inventoryManager;
+
     private StockItem stockItem;
-    
+   
     @Test
     public void adicionarProdutoSucesso() {
         int sku = 3232;
@@ -31,7 +32,7 @@ public class InventoryManagerTest {
         int quantidade = 100;
         double valor = 50.00;
 
-        StockItem localStockItem = null; // Renomeie esta variável para evitar shadowing
+        StockItem localStockItem = null; 
         
         try {
             localStockItem = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
@@ -133,7 +134,7 @@ public class InventoryManagerTest {
         int quantidadeEstoque = 10;
         double precoProdutoExterno = 55.00;
         when(precoServiceMock.getPreco(produtoSku)).thenReturn(precoProdutoExterno);
-        StockItem localStockItem = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); // Renomeie esta variável para evitar shadowing
+        StockItem localStockItem = inventoryManager.adicionarProduto(produtoSku, nomeProduto, quantidadeEstoque, 0.0); 
         verify(precoServiceMock).getPreco(produtoSku);
         assertEquals(precoProdutoExterno, localStockItem.getValor(), 0.01);
         verify(estoqueMock).put(produtoSku, localStockItem);
@@ -145,7 +146,7 @@ public class InventoryManagerTest {
         String nome = "Camiseta";
         int quantidade = 10;
         double valor = 20.00;
-        StockItem localStockItem = inventoryManager.adicionarProduto(sku, nome, quantidade, valor); // Renomeie esta variável para evitar shadowing
+        StockItem localStockItem = inventoryManager.adicionarProduto(sku, nome, quantidade, valor); 
         assertNotNull(localStockItem);
         assertEquals(sku, localStockItem.getSku());
         assertEquals(nome, localStockItem.getNome());
@@ -169,7 +170,7 @@ public class InventoryManagerTest {
         String nome = "Calça";
         int quantidade = 20;
         double valor = 65.99;
-        StockItem localStockItem = new StockItem(sku, nome, quantidade, valor); // Renomeie esta variável para evitar shadowing
+        StockItem localStockItem = new StockItem(sku, nome, quantidade, valor); 
         localStockItem.setSku(1234);
         localStockItem.setNome("Jaqueta");
         localStockItem.setQuantidade(30);
@@ -204,5 +205,40 @@ public class InventoryManagerTest {
         inventoryManager.removerProduto(sku, quantidade);
 
         fail("Exceção EstoqueIndisponivelException não foi lançada");
+    }
+
+
+
+
+ 
+
+    
+    @Test(expected = PriceInvalidException.class)
+    public void testAdicionarProdutoPrecoInvalidoExterno() throws StockException {
+        int sku = 1001;
+        String nome = "Produto Teste";
+        int quantidade = 10;
+        
+        when(precoServiceMock.getPreco(sku)).thenReturn(0.0);
+
+        inventoryManager.adicionarProduto(sku, nome, quantidade, null);
+    }
+
+    
+    @Test
+    public void testRemoverProdutoSucesso() throws StockException {
+        int sku = 1001;
+        String nome = "Produto Teste";
+        int quantidadeInicial = 10;
+        int quantidadeRemover = 5;
+        double valor = 25.0;
+
+        StockItem item = new StockItem(sku, nome, quantidadeInicial, valor);
+        when(estoqueMock.get(sku)).thenReturn(item);
+
+        inventoryManager.removerProduto(sku, quantidadeRemover);
+
+        verify(estoqueMock).get(sku);
+        assertEquals(quantidadeInicial - quantidadeRemover, item.getQuantidade());
     }
 }
