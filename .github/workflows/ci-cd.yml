@@ -37,6 +37,17 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco/
 
+      - name: Upload Jacoco Report to FTP
+        env:
+          FTPHOST: ${{ secrets.FTPHOST }}
+          FTPUSER: ${{ secrets.FTPUSER }}
+          FTPPASS: ${{ secrets.FTPPASS }}
+        run: |
+          sudo apt-get install -y lftp
+          lftp -u $FTPUSER,$FTPPASS $FTPHOST -e "
+          mirror -R target/site/jacoco /A3Unifacs20241;
+          quit"
+
       - name: SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
