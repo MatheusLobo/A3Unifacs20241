@@ -241,4 +241,44 @@ public class InventoryManagerTest {
         verify(estoqueMock).get(sku);
         assertEquals(quantidadeInicial - quantidadeRemover, item.getQuantidade());
     }
+    
+    @Test
+    public void removerProdutoEstoqueVazio() {
+        int sku = 1234;
+        int quantidadeRemover = 5;
+
+        // Mock um StockItem com quantidade 0 para o SKU fornecido
+        when(estoqueMock.get(sku)).thenReturn(new StockItem(sku, "Produto Teste", 0, 10.0));
+
+        // Verifique se a exceção StockUnavailableException é lançada
+        assertThrows(StockUnavailableException.class, () -> {
+            inventoryManager.removerProduto(sku, quantidadeRemover);
+        });
+
+        // Verifique se o método get do mock do estoque foi chamado
+        verify(estoqueMock).get(sku);
+    }
+    
+    @Test
+    public void adicionarProdutoPrecoValidoTest() {
+        int sku = 9876;
+        String nome = "Calça Jeans";
+        int quantidade = 20;
+        double valor = 59.99;
+
+        // Adicionar o produto ao estoque
+        StockItem item = null;
+        try {
+            item = inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
+        } catch (StockException e) {
+            fail("Nenhuma exceção esperada, mas uma StockException foi lançada: " + e.getMessage());
+        }
+
+        // Verifique se o item não é nulo e se os valores estão corretos
+        assertNotNull(item);
+        assertEquals(sku, item.getSku());
+        assertEquals(nome, item.getNome());
+        assertEquals(quantidade, item.getQuantidade());
+        assertEquals(valor, item.getValor(), 0.01);
+    }
 }
