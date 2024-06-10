@@ -24,9 +24,9 @@ public class InventoryManagerTest {
     private InventoryManager inventoryManager;
 
     private StockItem stockItem;
-
+    	//teste 
     @Test
-    public void adicionarProdutoSucesso() {
+    public void adicionarProdutoSucesso(){
         int sku = 3232;
         String nome = "Camiseta";
         int quantidade = 100;
