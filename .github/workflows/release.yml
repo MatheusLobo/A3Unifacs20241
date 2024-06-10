@@ -122,16 +122,4 @@ jobs:
             done < messages.txt
 
             if [ -n "$increment_type" ]; then
-              new_version=$(increment_version $LAST_TAG $increment_type)
-              echo "New version: $new_version"
-              push_newversion $new_version
-            else
-              echo "No changes requiring a version increment."
-            fi
-          }
-
-          start
-
-          if [ -z "$PREVENT_REMOVE_FILE" ]; then
-            rm -f messages.txt
-          fi
+              new_version=$(increment_version
