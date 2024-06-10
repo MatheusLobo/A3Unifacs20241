@@ -1,0 +1,24 @@
+release:
+  runs-on: ubuntu-latest
+  needs: build
+  if: github.ref == 'refs/heads/release'
+  steps:
+    - uses: actions/checkout@v3
+    - name: Set Repository URL
+      run: echo "REPOSITORY_URL=https://github.com/MatheusLobo/A3Unifacs20241" >> $GITHUB_ENV
+    - name: Set NPM Token
+      run: echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}" >> $GITHUB_ENV
+    - name: Install NPM Packages
+      run: npm ci
+    - name: Disable Git Tag Version
+      run: npm config -g set git-tag-version false
+    - name: Run Semantic Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPOSITORY_URL: ${{ env.REPOSITORY_URL }}
+      run: npx semantic-release
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: gqs
+        path: target/gqs-1.0-SNAPSHOT.jar
