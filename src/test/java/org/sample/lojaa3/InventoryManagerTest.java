@@ -24,7 +24,7 @@ public class InventoryManagerTest {
     private InventoryManager inventoryManager;
 
     private StockItem stockItem;
-    	//teste 
+    	 
     @Test
     public void adicionarProdutoSucesso(){
         int sku = 3232;
