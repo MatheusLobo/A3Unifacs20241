@@ -67,7 +67,7 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <includes>
-                        <include>**/InventoryManagerTest.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
@@ -76,24 +76,27 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.9</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
-                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                   </execution>
-                   <execution>
-                    <id>report</id>
-                    <phase>test</phase>
-                    <goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
                             <goal>report</goal>
                         </goals>
-                </execution>
-               </executions>
+                    </execution>
+                </executions>
+                   <configuration>
+                <includes>
+                    <include>**/org/sample/lojaa3/*.class</include>
+                </includes>
+            </configuration>
             </plugin>
-
 
             <!--SonarCloud Maven Plugin-->
             <plugin>
