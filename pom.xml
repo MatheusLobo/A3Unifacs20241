@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -13,6 +14,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <!-- Configurações do SonarQube -->
+        <sonar.host.url>http://localhost:9004</sonar.host.url> <!-- URL do servidor do SonarQube -->
+        <sonar.login>admin</sonar.login> <!-- Nome de usuário do SonarQube -->
+        <sonar.password>Dc33622562</sonar.password> <!-- Senha do SonarQube -->
     </properties>
 
     <dependencies>
@@ -43,7 +48,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.6</version>
         </dependency>
     </dependencies>
 
@@ -64,12 +69,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.2.5</version>
                 <configuration>
+                    <argLine>-XX:+EnableDynamicAgentLoading -Djdk.instrument.traceUsage=false ${argLine}</argLine>
                     <includes>
                         <include>**/*Test.java</include>
+                        <include>**/InventoryManagerTest.java</include>
                     </includes>
-                    <argLine>-XX:+EnableDynamicAgentLoading -Djdk.instrument.traceUsage=false ${argLine}</argLine>
+                    <!-- Add this to explicitly include Logback -->
+                    <dependenciesToScan>
+                        <dependency>ch.qos.logback:logback-classic</dependency>
+                    </dependenciesToScan>
                 </configuration>
             </plugin>
 
@@ -77,9 +87,10 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -90,6 +101,15 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <dataFile>target/jacoco.exec</dataFile>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <outputDirectory>target/jacoco-ut</outputDirectory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -98,7 +118,15 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.0.2155</version>
+                <version>3.9.1.2184</version>
+                <executions>
+                    <execution>
+                        <id>sonar</id>
+                        <goals>
+                            <goal>sonar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

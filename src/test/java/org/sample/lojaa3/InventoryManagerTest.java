@@ -1,17 +1,17 @@
 package org.sample.lojaa3;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.lenient;
-
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.sample.lojaa3.InventoryManager.PrecoService;
+
+
+import java.util.Map;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InventoryManagerTest {
@@ -23,7 +23,7 @@ public class InventoryManagerTest {
     @InjectMocks
     private InventoryManager inventoryManager;
 
-    private StockItem stockItem;
+
     	 
     @Test
     public void adicionarProdutoSucesso(){

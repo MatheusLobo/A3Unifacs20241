@@ -1,0 +1,6 @@
+projectKey=com.example:gqs
+serverUrl=http://localhost:9004
+serverVersion=10.5.1.90531
+dashboardUrl=http://localhost:9004/dashboard?id=com.example%3Agqs
+ceTaskId=adca4c05-4e5e-47e2-8df2-f6a693f596c4
+ceTaskUrl=http://localhost:9004/api/ce/task?id=adca4c05-4e5e-47e2-8df2-f6a693f596c4
