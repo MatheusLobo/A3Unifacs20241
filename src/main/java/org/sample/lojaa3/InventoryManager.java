@@ -1,6 +1,5 @@
 package org.sample.lojaa3;
 
-
 import java.util.Map;
 
 public class InventoryManager {
@@ -12,47 +11,61 @@ public class InventoryManager {
         this.estoque = estoque;
         this.precoService = precoService;
     }
+
     public static final String SKU_INVALID_MESSAGE = "SKU inválido: ";
+
     public StockItem adicionarProduto(int sku, String nome, int quantidade, Double valor) {
         try {
-            if (sku <= 0) {
-            	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
-            }
-            if (nome == null || nome.isEmpty()) {
-                throw new StockException("Nome inválido: " + nome);
-            }
-            if (quantidade <= 0) {
-                throw new QuantityInvalidException("Quantidade inválida: " + quantidade);
-            }
-
-            double precoFinal;
-            if (valor != null && valor > 0) {
-                precoFinal = valor; 
-            } else {
-                precoFinal = precoService != null ? precoService.getPreco(sku) : 0.0; 
-                }
-
-            if (precoFinal <= 0) {
-                throw new PriceInvalidException("Preço inválido: " + precoFinal);
-            }
+            validarSku(sku);
+            validarNome(nome);
+            validarQuantidade(quantidade);
+            double precoFinal = calcularPrecoFinal(sku, valor);
 
             StockItem stockItem = new StockItem(sku, nome, quantidade, precoFinal);
             estoque.put(stockItem.getSku(), stockItem);
             return stockItem;
-        } catch (StockException | QuantityInvalidException | SkuInvalidException e) {
+        } catch (StockException | QuantityInvalidException | SkuInvalidException | PriceInvalidException e) {
             System.err.println(e.getMessage());
             return null;
         }
     }
 
-    
-    public void removerProduto(int sku, int quantidade) throws StockException {
+    private void validarSku(int sku) {
         if (sku <= 0) {
-        	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
+            throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
         }
+    }
+
+    private void validarNome(String nome) {
+        if (nome == null || nome.isEmpty()) {
+            throw new StockException("Nome inválido: " + nome);
+        }
+    }
+
+    private void validarQuantidade(int quantidade) {
         if (quantidade <= 0) {
             throw new QuantityInvalidException("Quantidade inválida: " + quantidade);
         }
+    }
+
+    private double calcularPrecoFinal(int sku, Double valor) {
+        if (valor != null && valor > 0) {
+            return valor;
+        } else {
+            double precoFinal = precoService != null ? precoService.getPreco(sku) : 0.0;
+            if (precoFinal <= 0) {
+                throw new PriceInvalidException("Preço inválido: " + precoFinal);
+            }
+            return precoFinal;
+        }
+    }
+    public double calcularValorTotalEstoque() {
+        return estoque.values().stream().mapToDouble(StockItem::getValor).sum();
+    }
+
+    public void removerProduto(int sku, int quantidade) throws StockException {
+        validarSku(sku);
+        validarQuantidade(quantidade);
 
         StockItem stockItem = estoque.get(sku);
         if (stockItem == null) {
@@ -68,9 +81,7 @@ public class InventoryManager {
     }
 
     public StockItem verificarEstoque(int sku) throws SkuInvalidException {
-        if (sku <= 0) {
-        	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);
-        }
+        validarSku(sku);
         return estoque.get(sku);
     }
 
