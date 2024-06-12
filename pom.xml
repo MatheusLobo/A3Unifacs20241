@@ -16,7 +16,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <!-- Configurações do SonarQube -->
         <sonar.host.url>http://localhost:9004</sonar.host.url> <!-- URL do servidor do SonarQube -->
-        <sonar.projectKey>MatheusLobo_A3Unifacs20241</sonar.projectKey> <!-- Chave do projeto no SonarQube -->
+        <sonar.projectKey>com.example:gqs</sonar.projectKey> <!-- Chave do projeto no SonarQube -->
         <sonar.organization>matheuslobo</sonar.organization> <!-- Nome da organização no SonarQube -->
         <sonar.login>${env.SONARQ_TOKEN}</sonar.login> <!-- Nome de usuário do SonarQube -->
         <sonar.password>Dc33622562</sonar.password> <!-- Senha do SonarQube -->
