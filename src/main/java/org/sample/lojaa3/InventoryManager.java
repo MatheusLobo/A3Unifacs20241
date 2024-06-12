@@ -59,11 +59,12 @@ public class InventoryManager {
             return precoFinal;
         }
     }
+
     public double calcularValorTotalEstoque() {
         return estoque.values().stream().mapToDouble(StockItem::getValor).sum();
     }
 
-    public void removerProduto(int sku, int quantidade) throws StockException {
+    public void removerProduto(int sku, int quantidade) {
         validarSku(sku);
         validarQuantidade(quantidade);
 
@@ -80,7 +81,7 @@ public class InventoryManager {
         stockItem.setQuantidade(estoqueAtual - quantidade);
     }
 
-    public StockItem verificarEstoque(int sku) throws SkuInvalidException {
+    public StockItem verificarEstoque(int sku) {
         validarSku(sku);
         return estoque.get(sku);
     }
