@@ -14,10 +14,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <!-- Configurações do SonarQube -->
-        <sonar.host.url>http://localhost:9004</sonar.host.url> <!-- URL do servidor do SonarQube -->
-        <sonar.login>admin</sonar.login> <!-- Nome de usuário do SonarQube -->
-        <sonar.password>Dc33622562</sonar.password> <!-- Senha do SonarQube -->
     </properties>
 
     <dependencies>
@@ -60,8 +56,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
 
@@ -87,7 +83,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -110,21 +106,6 @@
                                 <include>**/*</include>
                             </includes>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- SonarCloud Maven Plugin -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.1.2184</version>
-                <executions>
-                    <execution>
-                        <id>sonar</id>
-                        <goals>
-                            <goal>sonar</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

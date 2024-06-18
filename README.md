@@ -19,6 +19,9 @@ Vinicius Rian de Jesus Moreira 1272311431
 Paullo Victor de Carvalho Marques 12723117914
 
 https://www.youtube.com/watch?v=izr5zGkZKfw&feature=youtu.be
+<<<<<<< HEAD
 
 
 Teste
+=======
+>>>>>>> af0fcde828db9ead3e96eed0c07a9837203a9d68

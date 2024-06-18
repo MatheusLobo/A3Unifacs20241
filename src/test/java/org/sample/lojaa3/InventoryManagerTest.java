@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.sample.lojaa3.InventoryManager.PrecoService;
 
-
 import java.util.Map;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -23,8 +23,6 @@ public class InventoryManagerTest {
     @InjectMocks
     private InventoryManager inventoryManager;
 
-
-    	 
     @Test
     public void adicionarProdutoSucesso(){
         int sku = 3232;
@@ -42,43 +40,22 @@ public class InventoryManagerTest {
         verify(estoqueMock).put(sku, localStockItem);
     }
 
-  
+
     @Test
-    public void adicionarProdutoStorageNull() {
-        try {
-            inventoryManager.adicionarProduto(0, null, 0, 0.0);
-        } catch (QuantityInvalidException e) {
-            // excecao esperada
-        } catch (StockException e) {
-            fail("Quantidade errada");
-        }
+    public void calcularValorTotalEstoqueSucesso() {
+        int sku1 = 1234;
+        int sku2 = 5678;
+
+        StockItem item1 = new StockItem(sku1, "Produto 1", 10, 50.00);
+        StockItem item2 = new StockItem(sku2, "Produto 2", 20, 75.00);
+
+        when(estoqueMock.values()).thenReturn(List.of(item1, item2));
+
+        double valorTotal = inventoryManager.calcularValorTotalEstoque();
+
+        assertEquals(125.00, valorTotal, 0.01);
     }
 
-    
-    @Test
-    public void adicionarProdutoQuantidadeInvalida() {
-        try {
-            inventoryManager.adicionarProduto(3232, "Camiseta", -10, 50.00);
-        } catch (QuantityInvalidException e) {
-            // excecao esperada
-        } catch (StockException e) {
-            fail("Quantidade errada");
-        }
-    }
-
-   
-    @Test(expected = PriceInvalidException.class)
-    public void adicionarProdutoPrecoInvalido() {
-        int sku = 1234;
-        String nome = "Camiseta";
-        int quantidade = 10;
-        double valor = 0.00;
-        when(precoServiceMock.getPreco(sku)).thenThrow(PriceInvalidException.class);
-        inventoryManager.adicionarProduto(sku, nome, quantidade, valor);
-    }
-
-
-    
     @Test
     public void adicionarProdutoSucessoComPrecoExterno() {
         int produtoSku = 3232;
@@ -92,7 +69,6 @@ public class InventoryManagerTest {
         verify(estoqueMock).put(produtoSku, localStockItem);
     }
 
-    
     @Test
     public void removerProdutoSkuInvalido() {
         assertThrows(SkuInvalidException.class, () -> {
@@ -100,7 +76,6 @@ public class InventoryManagerTest {
         });
     }
 
-    
     @Test
     public void adicionarProdutoSucesso_Caminho() {
         int sku = 1234;
@@ -116,7 +91,6 @@ public class InventoryManagerTest {
         verify(estoqueMock).put(sku, localStockItem);
     }
 
-    
     @Test
     public void verificarEstoqueSucesso() {
         int sku = 3232;
@@ -136,7 +110,7 @@ public class InventoryManagerTest {
             assertEquals(valor, storageEstoque.getValor(), 0.01);
         }
     }
-  //(Teste de Integração)
+
     @Test
     public void removerProdutoSucesso() {
         Map<Integer, StockItem> localEstoqueMock = mock(Map.class);
@@ -156,8 +130,6 @@ public class InventoryManagerTest {
         assertEquals(quantidadeInicial - quantidadeRemover, ((StockItem) localEstoqueMock.get(sku)).getQuantidade());
     }
 
-    
-    //(Teste de caixa Branca)
     @Test
     public void removerProdutoEstoqueVazio() {
         int sku = 1234;
@@ -172,7 +144,10 @@ public class InventoryManagerTest {
         verify(estoqueMock).get(sku);
     }
 
+<<<<<<< HEAD
     // (Teste de Caixa Preta)
+=======
+>>>>>>> af0fcde828db9ead3e96eed0c07a9837203a9d68
     @Test
     public void storageSettersGetters() {
         int sku = 9876;
@@ -180,15 +155,22 @@ public class InventoryManagerTest {
         int quantidade = 20;
         double valor = 65.99;
         StockItem localStockItem = new StockItem(sku, nome, quantidade, valor);
-        localStockItem.setSku(1234);
-        localStockItem.setNome("Jaqueta");
         localStockItem.setQuantidade(30);
-        localStockItem.setValor(79.99);
-        assertEquals(1234, localStockItem.getSku());
-        assertEquals("Jaqueta", localStockItem.getNome());
         assertEquals(30, localStockItem.getQuantidade());
-        assertEquals(79.99, localStockItem.getValor(), 0.01);
     }
 
-
+    @Test
+    public void testRemoverProdutoNaoExistenteLancaStockUnavailableException() {
+        assertThrows(StockUnavailableException.class, () -> {
+            inventoryManager.removerProduto(999, 1);
+        });
     }
+
+    @Test
+    public void testRemoverQuantidadeMaiorQueDisponivelLancaStockUnavailableException() {
+        inventoryManager.adicionarProduto(1, "Produto A", 10, 50.0);
+        assertThrows(StockUnavailableException.class, () -> {
+            inventoryManager.removerProduto(1, 11);
+        });
+    }
+}

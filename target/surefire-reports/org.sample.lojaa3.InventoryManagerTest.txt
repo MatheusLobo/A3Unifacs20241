@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: org.sample.lojaa3.InventoryManagerTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.759 s -- in org.sample.lojaa3.InventoryManagerTest
+=======
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.610 s -- in org.sample.lojaa3.InventoryManagerTest
+>>>>>>> af0fcde828db9ead3e96eed0c07a9837203a9d68

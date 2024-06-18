@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gqs</a> &gt; <a href="index.source.html" class="el_package">org.sample.lojaa3</a> &gt; <span class="el_source">InventoryManager.java</span></div><h1>InventoryManager.java</h1><pre class="source lang-java linenums">package org.sample.lojaa3;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> af0fcde828db9ead3e96eed0c07a9837203a9d68
 import java.util.Map;
 
 public class InventoryManager {
@@ -8,6 +11,7 @@ public class InventoryManager {
     private final Map&lt;Integer, StockItem&gt; estoque;
     private final PrecoService precoService;
 
+<<<<<<< HEAD
 <span class="fc" id="L11">    public InventoryManager(Map&lt;Integer, StockItem&gt; estoque, PrecoService precoService) {</span>
 <span class="fc" id="L12">        this.estoque = estoque;</span>
 <span class="fc" id="L13">        this.precoService = precoService;</span>
@@ -72,6 +76,85 @@ public class InventoryManager {
 <span class="nc" id="L72">        	throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);</span>
         }
 <span class="fc" id="L74">        return estoque.get(sku);</span>
+=======
+<span class="fc" id="L10">    public InventoryManager(Map&lt;Integer, StockItem&gt; estoque, PrecoService precoService) {</span>
+<span class="fc" id="L11">        this.estoque = estoque;</span>
+<span class="fc" id="L12">        this.precoService = precoService;</span>
+<span class="fc" id="L13">    }</span>
+
+    public static final String SKU_INVALID_MESSAGE = &quot;SKU inválido: &quot;;
+
+    public StockItem adicionarProduto(int sku, String nome, int quantidade, Double valor) {
+        try {
+<span class="fc" id="L19">            validarSku(sku);</span>
+<span class="fc" id="L20">            validarNome(nome);</span>
+<span class="fc" id="L21">            validarQuantidade(quantidade);</span>
+<span class="fc" id="L22">            double precoFinal = calcularPrecoFinal(sku, valor);</span>
+
+<span class="fc" id="L24">            StockItem stockItem = new StockItem(sku, nome, quantidade, precoFinal);</span>
+<span class="fc" id="L25">            estoque.put(stockItem.getSku(), stockItem);</span>
+<span class="fc" id="L26">            return stockItem;</span>
+<span class="nc" id="L27">        } catch (StockException | QuantityInvalidException | SkuInvalidException | PriceInvalidException e) {</span>
+<span class="nc" id="L28">            System.err.println(e.getMessage());</span>
+<span class="nc" id="L29">            return null;</span>
+        }
+    }
+
+    private void validarSku(int sku) {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (sku &lt;= 0) {</span>
+<span class="fc" id="L35">            throw new SkuInvalidException(SKU_INVALID_MESSAGE + sku);</span>
+        }
+<span class="fc" id="L37">    }</span>
+
+    private void validarNome(String nome) {
+<span class="pc bpc" id="L40" title="2 of 4 branches missed.">        if (nome == null || nome.isEmpty()) {</span>
+<span class="nc" id="L41">            throw new StockException(&quot;Nome inválido: &quot; + nome);</span>
+        }
+<span class="fc" id="L43">    }</span>
+
+    private void validarQuantidade(int quantidade) {
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (quantidade &lt;= 0) {</span>
+<span class="nc" id="L47">            throw new QuantityInvalidException(&quot;Quantidade inválida: &quot; + quantidade);</span>
+        }
+<span class="fc" id="L49">    }</span>
+
+    private double calcularPrecoFinal(int sku, Double valor) {
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">        if (valor != null &amp;&amp; valor &gt; 0) {</span>
+<span class="fc" id="L53">            return valor;</span>
+        } else {
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            double precoFinal = precoService != null ? precoService.getPreco(sku) : 0.0;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            if (precoFinal &lt;= 0) {</span>
+<span class="nc" id="L57">                throw new PriceInvalidException(&quot;Preço inválido: &quot; + precoFinal);</span>
+            }
+<span class="fc" id="L59">            return precoFinal;</span>
+        }
+    }
+
+    public double calcularValorTotalEstoque() {
+<span class="fc" id="L64">        return estoque.values().stream().mapToDouble(StockItem::getValor).sum();</span>
+    }
+
+    public void removerProduto(int sku, int quantidade) {
+<span class="fc" id="L68">        validarSku(sku);</span>
+<span class="fc" id="L69">        validarQuantidade(quantidade);</span>
+
+<span class="fc" id="L71">        StockItem stockItem = estoque.get(sku);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (stockItem == null) {</span>
+<span class="fc" id="L73">            throw new StockUnavailableException(&quot;Produto não encontrado no estoque: SKU &quot; + sku);</span>
+        }
+
+<span class="fc" id="L76">        int estoqueAtual = stockItem.getQuantidade();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (quantidade &gt; estoqueAtual) {</span>
+<span class="fc" id="L78">            throw new StockUnavailableException(&quot;Estoque indisponível para remover &quot; + quantidade + &quot; unidades do produto: SKU &quot; + sku);</span>
+        }
+
+<span class="fc" id="L81">        stockItem.setQuantidade(estoqueAtual - quantidade);</span>
+<span class="fc" id="L82">    }</span>
+
+    public StockItem verificarEstoque(int sku) {
+<span class="fc" id="L85">        validarSku(sku);</span>
+<span class="fc" id="L86">        return estoque.get(sku);</span>
+>>>>>>> af0fcde828db9ead3e96eed0c07a9837203a9d68
     }
 
     interface PrecoService {
