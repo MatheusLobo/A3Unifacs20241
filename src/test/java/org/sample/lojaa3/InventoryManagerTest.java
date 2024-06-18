@@ -144,10 +144,7 @@ public class InventoryManagerTest {
         verify(estoqueMock).get(sku);
     }
 
-<<<<<<< HEAD
-    // (Teste de Caixa Preta)
-=======
->>>>>>> af0fcde828db9ead3e96eed0c07a9837203a9d68
+
     @Test
     public void storageSettersGetters() {
         int sku = 9876;
