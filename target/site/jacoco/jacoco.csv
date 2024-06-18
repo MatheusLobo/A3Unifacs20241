@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+gqs,org.sample.lojaa3,PriceInvalidException,4,0,0,0,2,0,1,0,1,0
+gqs,org.sample.lojaa3,QuantityInvalidException,0,4,0,0,0,2,0,1,0,1
+gqs,org.sample.lojaa3,StockException,4,0,0,0,2,0,1,0,1,0
+gqs,org.sample.lojaa3,StockUnavailableException,0,4,0,0,0,2,0,1,0,1
+gqs,org.sample.lojaa3,SkuInvalidException,0,4,0,0,0,2,0,1,0,1
+gqs,org.sample.lojaa3,StockItem,0,43,0,0,0,18,0,9,0,9
+gqs,org.sample.lojaa3,InventoryManager,31,126,8,18,5,31,8,9,0,4

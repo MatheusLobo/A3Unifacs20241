@@ -2,5 +2,5 @@ projectKey=com.example:gqs
 serverUrl=http://localhost:9004
 serverVersion=10.5.1.90531
 dashboardUrl=http://localhost:9004/dashboard?id=com.example%3Agqs
-ceTaskId=adca4c05-4e5e-47e2-8df2-f6a693f596c4
-ceTaskUrl=http://localhost:9004/api/ce/task?id=adca4c05-4e5e-47e2-8df2-f6a693f596c4
+ceTaskId=e007ac8f-3549-4e31-ac96-173aa55f2095
+ceTaskUrl=http://localhost:9004/api/ce/task?id=e007ac8f-3549-4e31-ac96-173aa55f2095

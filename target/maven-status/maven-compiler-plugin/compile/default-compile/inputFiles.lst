@@ -1,7 +1,7 @@
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\InventoryManager.java
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\QuantityInvalidException.java
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\SkuInvalidException.java
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\PriceInvalidException.java
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\StockItem.java
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\StockException.java
-C:\Users\MatheusLobo\git\Armazem\Lojaa3\A3Unifacs20241\A3Unifacs20241\src\main\java\org\sample\lojaa3\StockUnavailableException.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\StockUnavailableException.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\PriceInvalidException.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\StockException.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\QuantityInvalidException.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\SkuInvalidException.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\StockItem.java
+C:\Users\MatheusLobo\git\A3Un\src\main\java\org\sample\lojaa3\InventoryManager.java
